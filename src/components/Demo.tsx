@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Show } from "./Show";
+import { DbDemo } from "./quick-react-example";
 
 export const Demo = () => {
     const [isShown, setIsShown] = useState(false);
@@ -17,6 +18,7 @@ export const Demo = () => {
                         <Show when={isShown} fallback="fallback">
                             {() => obj.text}
                         </Show>
+                        <DbDemo />
                     </div>
                 </div>
             </div>
