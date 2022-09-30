@@ -1,6 +1,7 @@
 import { deleteFrom, insert, like$, select, update } from "@kikko-land/query-builder";
 import { makeId, runQuery, sql, useCacheQuery, useQuery, useRunQuery } from "@kikko-land/react";
-import { LoremIpsum } from "lorem-ipsum";
+import { Box, Button, Input, Table } from "@mantine/core";
+import humanId from "human-id";
 import { chunk } from "pastable";
 import { useState } from "react";
 import Highlighter from "react-highlight-words";
@@ -14,17 +15,6 @@ import { usePaginator } from "./usePaginator";
 //         vfs: "minimal",
 //     },
 // } as const;
-
-const lorem = new LoremIpsum({
-    sentencesPerParagraph: {
-        max: 8,
-        min: 4,
-    },
-    wordsPerSentence: {
-        max: 16,
-        min: 4,
-    },
-});
 
 type INoteRow = {
     id: string;
@@ -61,19 +51,25 @@ const Row = ({ row, textToSearch }: { row: INoteRow; textToSearch: string }) => 
             <td>{new Date(row.createdAt).toLocaleString()}</td>
             <td>{new Date(row.updatedAt).toLocaleString()}</td>
             <td>
-                <button onClick={() => void deleteRecord()} disabled={deleteRecordState.type !== "idle"}>
-                    Delete
-                </button>
-                <button
-                    onClick={() => void updateRecord()}
-                    disabled={
-                        updateRecordState.type !== "running" &&
-                        updateRecordState.type !== "idle" &&
-                        updateRecordState.type !== "done"
-                    }
-                >
-                    Update {updateRecordState.type}
-                </button>
+                <Button.Group orientation="vertical">
+                    <Button
+                        variant="light"
+                        onClick={() => void deleteRecord()}
+                        disabled={deleteRecordState.type !== "idle"}
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        onClick={() => void updateRecord()}
+                        disabled={
+                            updateRecordState.type !== "running" &&
+                            updateRecordState.type !== "idle" &&
+                            updateRecordState.type !== "done"
+                        }
+                    >
+                        Update {updateRecordState.type}
+                    </Button>
+                </Button.Group>
             </td>
         </tr>
     );
@@ -105,7 +101,7 @@ export const List = () => {
         nextPage,
         prevPage,
     } = usePaginator({
-        perPage: 50,
+        perPage: 10,
         baseQuery: baseSql,
     });
     const rowsResult = useQuery<INoteRow>(paginatedQuery);
@@ -117,8 +113,8 @@ export const List = () => {
                 insert(
                     ch.map((i) => ({
                         id: makeId(),
-                        title: lorem.generateWords(4),
-                        content: lorem.generateParagraphs(1),
+                        title: humanId({ separator: "-", capitalize: false }),
+                        content: humanId({ adjectiveCount: 10, separator: "-", capitalize: false }),
                         createdAt: Date.now(),
                         updatedAt: Date.now(),
                     }))
@@ -157,27 +153,27 @@ export const List = () => {
             <br />
             <br /> */}
 
-            {[100, 1000, 10_000, 100_000, 1_000_000].map((count) => (
-                <button
-                    key={count}
-                    onClick={() => void createNotes(count)}
-                    disabled={createNotesState.type === "running" || createNotesState.type === "waitingDb"}
+            <Button.Group>
+                {[100, 1000, 10_000, 100_000].map((count) => (
+                    <Button
+                        key={count}
+                        onClick={() => void createNotes(count)}
+                        disabled={createNotesState.type === "running" || createNotesState.type === "waitingDb"}
+                    >
+                        {createNotesState.type === "running" ? "Loading..." : `Add  ${nbFormat.format(count)} records!`}
+                    </Button>
+                ))}
+                <Button
+                    onClick={() => void deleteAll()}
+                    disabled={deleteAllState.type === "running" || deleteAllState.type === "waitingDb"}
                 >
-                    {createNotesState.type === "running" ? "Loading..." : `Add  ${count} records!`}
-                </button>
-            ))}
+                    {deleteAllState.type === "running" ? "Loading..." : "Delete all records!"}
+                </Button>
+            </Button.Group>
 
-            <button
-                onClick={() => void deleteAll()}
-                disabled={deleteAllState.type === "running" || deleteAllState.type === "waitingDb"}
-            >
-                {deleteAllState.type === "running" ? "Loading..." : "Delete all records!"}
-            </button>
+            <Box mt="xl" />
 
-            <br />
-            <br />
-
-            <input
+            <Input
                 value={textToSearch}
                 onChange={(e) => {
                     setTextToSearch(e.target.value);
@@ -185,14 +181,13 @@ export const List = () => {
                 placeholder="Search content"
             />
 
-            <br />
-            <br />
+            <Box mt="xl" />
 
             <div>Total found records: {totalCount !== undefined ? totalCount : "Loading..."}</div>
 
-            <br />
+            <Box mt="xl" />
 
-            <table>
+            <Table>
                 <thead>
                     <tr>
                         <td>Title</td>
@@ -206,20 +201,26 @@ export const List = () => {
                     {rowsResult.type === "loaded" &&
                         rowsResult.data.map((r) => <Row row={r} textToSearch={textToSearch} key={r.id} />)}
                 </tbody>
-            </table>
+            </Table>
 
-            <br />
+            <Box mt="xl" />
 
-            <div>
-                Page: {currentPage}
-                {totalPages !== undefined && ` of ${totalPages}`}
-                <button disabled={!isPrevPageAvailable} onClick={prevPage}>
-                    Prev page
-                </button>
-                <button disabled={!isNextPageAvailable} onClick={nextPage}>
-                    Next page
-                </button>
-            </div>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                <Box mr="auto">
+                    Page: {currentPage}
+                    {totalPages !== undefined && ` of ${totalPages}`}
+                </Box>
+                <Button.Group>
+                    <Button disabled={!isPrevPageAvailable} onClick={prevPage}>
+                        Prev page
+                    </Button>
+                    <Button disabled={!isNextPageAvailable} onClick={nextPage}>
+                        Next page
+                    </Button>
+                </Button.Group>
+            </Box>
         </>
     );
 };
+
+const nbFormat = new Intl.NumberFormat("en-US");

@@ -16,12 +16,14 @@
         "lint:pick": "eslint-nibble -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache"
     },
     "dependencies": {
+        "@emotion/react": "^11.10.4",
         "@kikko-land/absurd-web-backend": "^0.5.0",
         "@kikko-land/react": "^0.3.0",
         "@kikko-land/sql.js": "^1.6.8",
+        "@mantine/core": "^5.4.2",
+        "@mantine/hooks": "^5.4.2",
         "human-id": "^4.0.0",
         "kysely": "^0.21.6",
-        "lorem-ipsum": "^2.0.8",
         "pastable": "^2.0.13",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
