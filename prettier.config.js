@@ -9,5 +9,4 @@ module.exports = {
     importOrder: ["dotenv/config", `^@\//(.*)$`, "^[./]"],
     importOrderSeparation: true,
     importOrderSortSpecifiers: true,
-    plugins: [require("@trivago/prettier-plugin-sort-imports")],
 };

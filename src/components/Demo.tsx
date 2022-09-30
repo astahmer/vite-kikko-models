@@ -1,7 +1,8 @@
 import { useState } from "react";
 
+import { OfflineDemo } from "@/offline/OfflineDemo";
+
 import { Show } from "./Show";
-import { DbDemo } from "./quick-react-example";
 
 export const Demo = () => {
     const [isShown, setIsShown] = useState(false);
@@ -16,10 +17,11 @@ export const Demo = () => {
                     <div>
                         <input type="checkbox" onChange={() => setIsShown((current) => !current)} />
                         <Show when={isShown} fallback="fallback">
-                            {() => obj.text}
+                            {() => obj!.text}
                         </Show>
-                        <DbDemo />
                     </div>
+                    <div style={{ marginTop: "10px" }} />
+                    <OfflineDemo />
                 </div>
             </div>
         </div>

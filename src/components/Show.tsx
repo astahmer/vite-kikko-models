@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 export function Show({
@@ -18,11 +18,11 @@ export function Show({
 
     if (when) {
         return (
-            <ErrorBoundary fallback={(fallback || null) as ReactElement}>
+            <ErrorBoundary fallback={(fallback ?? null) as ReactElement}>
                 {typeof children === "function" ? children() : children}
             </ErrorBoundary>
         );
     }
 
-    return (fallback || null) as ReactElement;
+    return (fallback ?? null) as ReactElement;
 }

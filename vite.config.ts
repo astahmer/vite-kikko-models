@@ -6,11 +6,20 @@ import checker from "vite-plugin-checker";
 export default defineConfig({
     base: "/",
     root: "./",
-    build: { outDir: "./dist", sourcemap: true },
+    build: { outDir: "./dist", sourcemap: true, target: "es2020" },
+    optimizeDeps: {
+        esbuildOptions: { target: "es2020", supported: { bigint: true } },
+    },
     plugins: [
         // https://jotai.org/docs/guides/vite
         react(),
-        checker({ typescript: true, overlay: { initialIsOpen: false, position: "tl" } }),
+        checker({
+            typescript: true,
+            overlay: { initialIsOpen: false, position: "tl" },
+            eslint: {
+                lintCommand: "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
+            },
+        }),
     ],
     resolve: {
         alias: [
