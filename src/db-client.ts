@@ -1,7 +1,7 @@
 import { DummyDriver, Kysely, SqliteAdapter, SqliteIntrospector, SqliteQueryCompiler } from "kysely";
 import type { DB } from "kysely-codegen";
 
-// pnpm kysely-codegen --url ./mikro-server.db --dialect sqlite --output ./src/db-client.ts
+// pnpm kysely-codegen --url ./mikro-server.db --dialect sqlite --out-file ./src/db-client.ts
 export const qb = new Kysely<DB>({
     dialect: {
         createAdapter() {

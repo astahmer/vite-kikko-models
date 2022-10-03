@@ -17,6 +17,7 @@ export const createEntityScope = () => {
     const relationshipsMap = new Map<string, string>();
     const ctx = { entityMap, relationshipsMap } as ZodEntityContext;
 
+    // TODO extract + delete unused ctx
     const defineZodEntity = <Schema extends z.AnyZodObject>(
         name: string,
         schema: Schema,

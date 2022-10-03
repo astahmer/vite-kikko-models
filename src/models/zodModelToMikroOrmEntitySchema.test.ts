@@ -4,7 +4,7 @@ import { z } from "zod";
 import { createEntityScope } from "./createEntityScope";
 import { zodModelToMikroOrmEntitySchema } from "./zodModelToMikroOrmEntitySchema";
 
-import { RawArrayInMemoryMigrationGenerator, RawArrayMigrationGenerator } from "./RawArrayMigrationGenerator";
+import { KikkoInMemoryMigrationGenerator } from "./KikkoMigrationGenerator";
 import { qb } from "../db-client";
 import { CompiledQuery } from "kysely";
 
@@ -101,7 +101,7 @@ it("zodModelToMikroOrmEntitySchema", async () => {
         type: "sqlite",
         entities: [NoteEntitySchema, AuthorEntitySchema],
         migrations: {
-            generator: RawArrayInMemoryMigrationGenerator,
+            generator: KikkoInMemoryMigrationGenerator,
             snapshot: false,
         },
     });
@@ -118,18 +118,6 @@ it("zodModelToMikroOrmEntitySchema", async () => {
               "create index \`note_author_id_index\` on \`note\` (\`author_id\`);",
           ],
       }
-    `);
-    expect(initialMigration.code).toMatchInlineSnapshot(`
-      "export default {
-          id: "${initialMigration.fileName.replace(".ts", "")}",
-          up: [
-              \`create table 'author' ('id' integer not null primary key autoincrement, 'name' text not null, 'lastname' text not null);\`,
-              \`create table 'note' ('id' integer not null primary key autoincrement, 'title' text not null, 'content' text not null, 'author_id' integer not null, constraint 'note_author_id_foreign' foreign key('author_id') references 'author'('id') on update cascade);\`,
-              \`create index 'note_author_id_index' on 'note' ('author_id');\`,
-          ],
-          down: [],
-      };
-      "
     `);
     await orm.close(true);
 
