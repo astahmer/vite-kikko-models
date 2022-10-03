@@ -4,7 +4,7 @@ import { z } from "zod";
 import { createEntityScope } from "./createEntityScope";
 import { zodModelToMikroOrmEntitySchema } from "./zodModelToMikroOrmEntitySchema";
 
-import { CustomMigrationGenerator } from "./CustomMigrationGenerator";
+import { RawArrayInMemoryMigrationGenerator, RawArrayMigrationGenerator } from "./RawArrayMigrationGenerator";
 import { qb } from "../db-client";
 import { CompiledQuery } from "kysely";
 
@@ -101,7 +101,7 @@ it("zodModelToMikroOrmEntitySchema", async () => {
         type: "sqlite",
         entities: [NoteEntitySchema, AuthorEntitySchema],
         migrations: {
-            generator: CustomMigrationGenerator,
+            generator: RawArrayInMemoryMigrationGenerator,
             snapshot: false,
         },
     });
@@ -127,6 +127,7 @@ it("zodModelToMikroOrmEntitySchema", async () => {
               \`create table 'note' ('id' integer not null primary key autoincrement, 'title' text not null, 'content' text not null, 'author_id' integer not null, constraint 'note_author_id_foreign' foreign key('author_id') references 'author'('id') on update cascade);\`,
               \`create index 'note_author_id_index' on 'note' ('author_id');\`,
           ],
+          down: [],
       };
       "
     `);
@@ -150,7 +151,7 @@ it("zodModelToMikroOrmEntitySchema", async () => {
       ]
     `);
     expect(replaceSqlParameters(query.sql, query.parameters)).toMatchInlineSnapshot(
-        '"select "content", "title" from "note" where "author_id" = 1 and "content" like \'123\' or "title" not ilike \'oui\'"'
+        '"select "content", "title" from "note" where "author_id" = 1 and "content" like 123 or "title" not ilike oui"'
     );
     //   await migrator.createMigration(); // creates file Migration20191019195930.ts
     //   await migrator.up(); // runs migrations up to the latest

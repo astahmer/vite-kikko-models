@@ -1,6 +1,7 @@
 import { TSMigrationGenerator } from "@mikro-orm/migrations";
-import prettier, { type Options, resolveConfig } from "prettier";
-import parserTypescript from "prettier/parser-typescript";
+import { resolveConfig } from "prettier";
+
+import { maybePretty } from "./maybePretty";
 
 export class MemoryMigrationGenerator extends TSMigrationGenerator {
     override async generate(
@@ -15,14 +16,5 @@ export class MemoryMigrationGenerator extends TSMigrationGenerator {
         const ret = this.generateMigrationFile(className, diff);
 
         return [maybePretty(ret, prettierConfig), fileName];
-    }
-}
-
-/** @see https://github.dev/stephenh/ts-poet/blob/5ea0dbb3c9f1f4b0ee51a54abb2d758102eda4a2/src/Code.ts#L231 */
-function maybePretty(input: string, options?: Options | null): string {
-    try {
-        return prettier.format(input.trim(), { parser: "typescript", plugins: [parserTypescript], ...options });
-    } catch {
-        return input; // assume it's invalid syntax and ignore
     }
 }
