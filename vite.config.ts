@@ -1,5 +1,7 @@
+/// <reference types="vitest" />
+
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import checker from "vite-plugin-checker";
 
 // https://vitejs.dev/config/
@@ -16,9 +18,12 @@ export default defineConfig({
         checker({
             typescript: true,
             overlay: { initialIsOpen: false, position: "tl" },
-            eslint: {
-                lintCommand: "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
-            },
+            eslint:
+                process.env.MODE === "test"
+                    ? undefined
+                    : {
+                          lintCommand: "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
+                      },
         }),
     ],
     resolve: {
@@ -34,5 +39,10 @@ export default defineConfig({
             "Cross-Origin-Embedder-Policy": "require-corp",
             "Cross-Origin-Opener-Policy": "same-origin",
         },
+    },
+    test: {
+        include: ["src/**/*.test.ts", "tests/**/*.test.ts"],
+        // includeSource: ["src/**/*.ts"],
+        snapshotFormat: { indent: 4, escapeString: false },
     },
 });

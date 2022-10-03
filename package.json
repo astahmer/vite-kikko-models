@@ -11,9 +11,11 @@
         "build": "tsc && vite build",
         "serve": "vite preview",
         "format": "prettier --write \"./{src,tests}/**/*\"",
-        "lint": "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
-        "lint:fix": "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache --fix",
-        "lint:pick": "eslint-nibble -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache"
+        "lint": "eslint -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache",
+        "lint:fix": "eslint -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache --fix",
+        "lint:pick": "eslint-nibble -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache",
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
     },
     "dependencies": {
         "@emotion/react": "^11.10.4",
@@ -22,16 +24,24 @@
         "@kikko-land/sql.js": "^1.6.8",
         "@mantine/core": "^5.4.2",
         "@mantine/hooks": "^5.4.2",
+        "@mikro-orm/cli": "^5.4.2",
+        "@mikro-orm/core": "^5.4.2",
+        "@mikro-orm/migrations": "^5.4.2",
+        "@mikro-orm/sqlite": "^5.4.2",
+        "better-sqlite3": "^7.6.2",
         "human-id": "^4.0.0",
         "kysely": "^0.21.6",
+        "kysely-codegen": "^0.6.2",
         "pastable": "^2.0.13",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-error-boundary": "^3.1.4",
         "react-highlight-words": "^0.18.0",
-        "ts-pattern": "^4.0.5"
+        "ts-pattern": "^4.0.5",
+        "zod": "^3.19.1"
     },
     "devDependencies": {
+        "@types/prettier": "^2.7.1",
         "@types/react": "^18.0.21",
         "@types/react-dom": "^18.0.6",
         "@typescript-eslint/eslint-plugin": "^5.38.1",
@@ -59,6 +69,14 @@
         "typescript": "^4.8.4",
         "vite": "^3.1.4",
         "vite-plugin-checker": "^0.5.1",
-        "vite-plugin-compress": "^2.1.1"
+        "vite-plugin-compress": "^2.1.1",
+        "vitest": "^0.23.4"
+    },
+    "mikro-orm": {
+        "useTsNode": true,
+        "configPaths": [
+            "./src/mikro-orm.config.ts",
+            "./dist/mikro-orm.config.js"
+        ]
     }
 }

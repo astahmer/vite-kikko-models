@@ -39,7 +39,7 @@
         "forceConsistentCasingInFileNames": true,
         "noEmit": true
     },
-    "include": ["./src", "vite-env.d.ts"],
+    "include": ["./src", "vite-env.d.ts", "vitest/importMeta"],
     "exclude": ["node_modules", "dist", "cypress", "**/*.test.ts", "**/*.test.tsx", "**/*.test.js", "**/*.test.jsx"],
     "$schema": "https://json.schemastore.org/tsconfig",
     "display": "Strictest"

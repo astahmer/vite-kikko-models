@@ -1,6 +1,7 @@
 import type { ReactElement, ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
+// eslint-disable-next-line import/no-unused-modules
 export function Show({
     when,
     children,

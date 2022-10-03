@@ -6,7 +6,7 @@ import { getRandomString } from "pastable";
 // import * as qb from "@kikko-land/query-builder";
 
 export type Note = { id: string; title: string };
-export const Notes = () => {
+export const NotesDemo = () => {
     const notes = useQuery<Note>(select().from("notes"));
     const notesCount = useQueryFirstRow<{ count: number }>(select({ count: sql`COUNT(*)` }).from("notes"));
 

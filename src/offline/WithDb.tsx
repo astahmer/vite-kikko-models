@@ -5,6 +5,8 @@ import { DbProvider, EnsureDbLoaded, migrationsPlugin, reactiveQueriesPlugin } f
 import sqlWasmUrl from "@kikko-land/sql.js/dist/sql-wasm.wasm?url";
 import type { WithChildren } from "pastable";
 
+import { createMikroOrmMigration } from "@/migrations/createMikroOrmMigration";
+
 import { addCreateUpdatedAtToNotes } from "../migrations/addCreateUpdatedAtToNotes";
 import { createKVMigration } from "../migrations/createKVMigration";
 import { createNotesTable } from "../migrations/createNotesTable";
@@ -16,7 +18,9 @@ const config: IInitDbClientConfig = {
     }),
     plugins: [
         reactiveQueriesPlugin(),
-        migrationsPlugin({ migrations: [createNotesTable, createKVMigration, addCreateUpdatedAtToNotes] }),
+        migrationsPlugin({
+            migrations: [createNotesTable, createKVMigration, addCreateUpdatedAtToNotes, createMikroOrmMigration],
+        }),
     ],
 };
 
