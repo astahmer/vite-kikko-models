@@ -18,7 +18,7 @@ import { isType } from "pastable";
 import type { ZodDefaultDef, ZodLazyDef, ZodTypeDef } from "zod";
 import { ZodFirstPartyTypeKind } from "zod";
 
-import { type ZodEntity } from "./createEntityScope";
+import { type ZodEntity } from "./ZodEntity";
 
 export const zodModelToMikroOrmEntitySchema = (entity: ZodEntity<any>): EntitySchema => {
     // console.log(entity.schema._def.shape());
@@ -75,9 +75,10 @@ const parseBoolean = (): Property<string, any> => ({ type: "boolean" });
 const parseDate = (): Property<string, any> => ({ type: "Date" });
 // const parseUnknown = (): Property<string, any> => ({ type: "string", nullable: true });
 const parseObject = ({ def, propName, entity }: SelectParserArgs): Property<any, any> => {
+    // TODO rm
     return {
         reference: "1:1",
-        entity: entity.ctx!.relationshipsMap.get(`${entity.name}.${propName}`)!,
+        entity: `${entity.name}.${propName}`,
     };
 };
 

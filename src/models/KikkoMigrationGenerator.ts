@@ -12,7 +12,11 @@ export class KikkoInMemoryMigrationGenerator extends MemoryMigrationGenerator {
     }
 }
 
-/** Generates 2 migrations file: 1) the original MikroORM, 2) the RawArrayMigration file (for @kikko-land/migrations-plugin) */
+/**
+ * Generates 2 migrations file: 1) the original MikroORM, 2) the Kikko IMigration file (for @kikko-land/migrations-plugin)
+ *
+ * pass a `process.env.KIKKO_MIGRATION_PATH` to specify the path where to write the runtime migrations
+ */
 export class KikkoAndOriginalMigrationGenerator extends TSMigrationGenerator {
     prettierConfig: Options | null = null;
 
@@ -26,7 +30,7 @@ export class KikkoAndOriginalMigrationGenerator extends TSMigrationGenerator {
         const defaultPath =
             this.options.emit === "ts" && this.options.pathTs ? this.options.pathTs : this.options.path!;
         path = Utils.normalizePath(this.driver.config.get("baseDir"), path ?? defaultPath);
-        const kikkoMigrationPath = Utils.normalizePath(path, "../migrations-kikko");
+        const kikkoMigrationPath = process.env.KIKKO_MIGRATION_PATH ?? Utils.normalizePath(path, "../migrations-kikko");
 
         await Promise.all([ensureDir(path), ensureDir(kikkoMigrationPath)]);
         const timestamp = new Date().toISOString().replace(/[:t-]|\.\d{3}z$/gi, "");
@@ -53,7 +57,7 @@ function generateMigrationFile(className: string, diff: { up: string[]; down: st
     import type { IMigration } from "@kikko-land/react";
     import { runQuery, sql } from "@kikko-land/react";
 
-    export const ${className}: IMigration = {
+    const ${className}: IMigration = {
         up: async (db) => {
             const statements = [${
                 "\n" +
@@ -67,6 +71,8 @@ function generateMigrationFile(className: string, diff: { up: string[]; down: st
             }
         },
         id: ${timestamp},
-        name: "TODO-${className}",
-    };`;
+        name: "${className}",
+    };
+
+    export default ${className};`;
 }

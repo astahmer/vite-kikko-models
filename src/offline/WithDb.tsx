@@ -1,27 +1,19 @@
 import { absurdWebBackend } from "@kikko-land/absurd-web-backend";
-import type { IInitDbClientConfig } from "@kikko-land/react";
+import type { IInitDbClientConfig, IMigration } from "@kikko-land/react";
 import { DbProvider, EnsureDbLoaded, migrationsPlugin, reactiveQueriesPlugin } from "@kikko-land/react";
 // For Vite:
 import sqlWasmUrl from "@kikko-land/sql.js/dist/sql-wasm.wasm?url";
 import type { WithChildren } from "pastable";
 
-import { createMikroOrmMigration } from "@/migrations/createMikroOrmMigration";
-
-import { addCreateUpdatedAtToNotes } from "../migrations/addCreateUpdatedAtToNotes";
-import { createKVMigration } from "../migrations/createKVMigration";
-import { createNotesTable } from "../migrations/createNotesTable";
-
+const migrations: IMigration[] = Object.values(
+    import.meta.glob("../migrations-kikko/*.ts", { eager: true, import: "default" })
+);
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",
     dbBackend: absurdWebBackend({
         wasmUrl: sqlWasmUrl,
     }),
-    plugins: [
-        reactiveQueriesPlugin(),
-        migrationsPlugin({
-            migrations: [createNotesTable, createKVMigration, addCreateUpdatedAtToNotes, createMikroOrmMigration],
-        }),
-    ],
+    plugins: [reactiveQueriesPlugin(), migrationsPlugin({ migrations })],
 };
 
 export const WithDb = ({ children }: WithChildren) => {

@@ -23,7 +23,7 @@ type INoteRow = {
     createdAt: number;
     updatedAt: number;
 };
-const notesTable = sql.table("notes");
+const notesTable = sql.table("note");
 
 const Row = ({ row, textToSearch }: { row: INoteRow; textToSearch: string }) => {
     const [deleteRecord, deleteRecordState] = useRunQuery((db) => async () => {

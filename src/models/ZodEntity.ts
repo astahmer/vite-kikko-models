@@ -12,23 +12,12 @@ import type {
     Property,
 } from "./zodModelToMikroOrmEntitySchema";
 
-export const createEntityScope = () => {
-    const entityMap = new Map<string, any>();
-    const relationshipsMap = new Map<string, string>();
-    const ctx = { entityMap, relationshipsMap } as ZodEntityContext;
-
-    // TODO extract + delete unused ctx
-    const defineZodEntity = <Schema extends z.AnyZodObject>(
-        name: string,
-        schema: Schema,
-        metadata?: Omit<EntityMetadata<Schema["shape"]>, "name" | "properties">
-    ) => {
-        entityMap.set(name, schema);
-
-        return new ZodEntity<Schema>(name, schema, metadata, ctx);
-    };
-
-    return { defineZodEntity, ctx };
+export const defineZodEntity = <Schema extends z.AnyZodObject>(
+    name: string,
+    schema: Schema,
+    metadata?: Omit<EntityMetadata<Schema["shape"]>, "name" | "properties">
+) => {
+    return new ZodEntity<Schema>(name, schema, metadata);
 };
 
 export class ZodEntity<Schema extends z.AnyZodObject> {
@@ -38,8 +27,7 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
         public name: string,
         public schema: Schema,
         metadata?: Omit<EntityMetadata<Schema["shape"]>, "name" | "properties"> &
-            Pick<Partial<EntityMetadata<Schema["shape"]>>, "properties">,
-        public readonly ctx?: ZodEntityContext
+            Pick<Partial<EntityMetadata<Schema["shape"]>>, "properties">
     ) {
         this.metadata = { ...metadata, name, properties: metadata?.properties ?? {} } as EntityMetadata<
             Schema["shape"]
@@ -74,10 +62,6 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
         // @ts-expect-error
         this.schema = this.schema.extend({ [propName]: relation.schema });
 
-        if (this.ctx) {
-            this.ctx.relationshipsMap.set(`${this.name}.${propName}`, relation.name);
-        }
-
         this.updateProperty(propName, { ...options, reference: "1:1", entity: relation.name } as OneToOneProp<
             Relation["schema"]["shape"],
             Options
@@ -93,10 +77,6 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
         // @ts-expect-error
         this.schema = this.schema.extend({ [propName]: relation.schema });
 
-        if (this.ctx) {
-            this.ctx.relationshipsMap.set(`${this.name}.${propName}`, relation.name);
-        }
-
         this.updateProperty(propName, { ...options, reference: "m:1", entity: relation.name } as ManyToOneProp<
             Relation["schema"]["shape"],
             Options
@@ -111,10 +91,6 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
     >(propName: PropName, relation: Relation, options?: Options) {
         // @ts-expect-error
         this.schema = this.schema.extend({ [propName]: z.array(relation.schema) });
-
-        if (this.ctx) {
-            this.ctx.relationshipsMap.set(`${this.name}.${propName}`, relation.name);
-        }
 
         this.updateProperty(propName, { ...options, reference: "m:n", entity: relation.name } as ManyToManyProp<
             Relation["schema"]["shape"],
@@ -133,10 +109,6 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
         // @ts-expect-error
         this.schema = this.schema.extend({ [propName]: z.array(relation.schema) });
 
-        if (this.ctx) {
-            this.ctx.relationshipsMap.set(`${this.name}.${propName}`, relation.name);
-        }
-
         this.updateProperty(propName, { ...options, reference: "1:m", entity: relation.name } as OneToManyProp<
             Relation["schema"]["shape"],
             Options
@@ -146,27 +118,3 @@ export class ZodEntity<Schema extends z.AnyZodObject> {
         >;
     }
 }
-
-const user = new ZodEntity("user", z.object({ id: z.number(), name: z.string() }));
-const note = new ZodEntity("note", z.object({ id: z.number(), title: z.string(), content: z.string() }));
-
-const withNotes = user.oneToMany("notes", note);
-// withNotes.schema.shape.notes._def.type.shape.title
-
-user.updateProperty("id", { primary: true });
-// oui.updateProperties({ id: { primary: true }, name: { nullable: true } });
-const updated = user.updateProperties({ id: { primary: true } }).manyToMany("notes", note, { nullable: true });
-// updated.schema.shape.notes._def.type.title;ce
-const withRelation = updated.oneToMany("notes", note);
-// withRelation.schema
-// const aaa: ZodEntity<z.ZodObject<{ notes: z.ZodArray<z.ZodString> }>> = withRelation;
-// const bbbb: ZodEntity<{ notes: z.ZodArray<z.ZodString> }> = withRelation;
-// bbbb.schema.shape.notes
-// aaa.schema.shape.notes
-
-export type EntityScope = ReturnType<typeof createEntityScope>;
-
-type ZodEntityContext = {
-    entityMap: Map<string, any>;
-    relationshipsMap: Map<string, string>;
-};

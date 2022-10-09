@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@emotion/react': ^11.10.4
   '@kikko-land/absurd-web-backend': ^0.5.0
+  '@kikko-land/query-builder': ^0.2.0
   '@kikko-land/react': ^0.3.0
   '@kikko-land/sql.js': ^1.6.8
   '@mantine/core': ^5.4.2
@@ -19,7 +20,6 @@ specifiers:
   '@typescript-eslint/parser': ^5.38.1
   '@vitejs/plugin-react': ^2.1.0
   better-sqlite3: ^7.6.2
-  cac: ^6.7.14
   eslint: ^8.24.0
   eslint-config-prettier: ^8.5.0
   eslint-define-config: ^1.7.0
@@ -51,6 +51,7 @@ specifiers:
   ts-pattern: ^4.0.5
   ts-toolbelt: ^9.6.0
   tsx: ^3.9.0
+  type-fest: ^3.1.0
   typescript: ^4.8.4
   vite: ^3.1.4
   vite-plugin-checker: ^0.5.1
@@ -61,6 +62,7 @@ specifiers:
 dependencies:
   '@emotion/react': 11.10.4_iapumuv4e6jcjznwuxpf4tt22e
   '@kikko-land/absurd-web-backend': 0.5.0_typescript@4.8.4
+  '@kikko-land/query-builder': 0.2.0
   '@kikko-land/react': 0.3.0_uz2ogxeagc4rbieizlfzyaazee
   '@kikko-land/sql.js': 1.6.8
   '@mantine/core': 5.4.2_n3klnqwq3xywav2ynnvuf7ilha
@@ -71,7 +73,6 @@ dependencies:
   '@mikro-orm/sqlite': 5.4.2_ji54ajakbumxesq245uwmakvoe
   '@types/fs-extra': 9.0.13
   better-sqlite3: 7.6.2
-  cac: 6.7.14
   fast-glob: 3.2.12
   fs-extra: 10.1.0
   human-id: 4.0.0
@@ -112,6 +113,7 @@ devDependencies:
   prettier: 2.7.1
   ts-toolbelt: 9.6.0
   tsx: 3.9.0
+  type-fest: 3.1.0
   typescript: 4.8.4
   vite: 3.1.4
   vite-plugin-checker: 0.5.1_bsk7jajiqelzubj3j7ak5rh5pi
@@ -1855,11 +1857,6 @@ packages:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
     dev: true
-
-  /cac/6.7.14:
-    resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
-    engines: {node: '>=8'}
-    dev: false
 
   /cacache/15.3.0:
     resolution: {integrity: sha512-VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==}
@@ -6339,6 +6336,11 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
     dev: false
+
+  /type-fest/3.1.0:
+    resolution: {integrity: sha512-StmrZmK3eD9mDF9Vt7UhqthrDSk66O9iYl5t5a0TSoVkHjl0XZx/xuc/BRz4urAXXGHOY5OLsE0RdJFIApSFmw==}
+    engines: {node: '>=14.16'}
+    dev: true
 
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}

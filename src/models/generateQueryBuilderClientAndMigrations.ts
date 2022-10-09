@@ -1,36 +1,31 @@
 import { type Options, MikroORM, Utils } from "@mikro-orm/core";
-import { ensureDir, move, remove } from "fs-extra";
 import { Cli } from "kysely-codegen";
 
+import { AuthorEntitySchema, NoteEntitySchema } from "./entities";
 import { KikkoAndOriginalMigrationGenerator } from "./KikkoMigrationGenerator";
+// import fg from "fast-glob";
 
 /**
- * - Generates MikroORM original migrations in `./migrations` (to populate the sqlite db file) and Kikko migrations in `./migrations-kikko`
- * - Temporarily persist to disk a sqlite `tmp.db` file so that the `kysely-codegen` can generate the query builder client
- * - Remove the `tmp.db` file & the MikroORM migrations files, then move the Kikko migrations into the `./migrations` folder
+ * - Generates MikroORM original migrations (to populate the sqlite db file) and Kikko migrations in given path
+ * - Persist to disk a sqlite db file so that the `kysely-codegen` can generate the query builder client
+ * @see https://mikro-orm.io/
+ * @see https://github.com/RobinBlomberg/kysely-codegen
  */
 export const generateQueryBuilderClientAndMigrations = async (options?: Options) => {
-    // TODO get migrationpath from MikroORM's ConfigurationLoader
-    const mikroPath = Utils.normalizePath(process.cwd(), "./migrations");
-    await ensureDir(mikroPath);
-
-    const tmpDbPath = Utils.normalizePath(mikroPath, "./tmp.db");
-    await remove(tmpDbPath);
-
-    console.log({ mikroPath, tmpDbPath });
-
+    // https://mikro-orm.io/docs/configuration#using-environment-variables
     const orm = await MikroORM.init({
         debug: ["info", "discovery"],
-        // https://mikro-orm.io/docs/configuration#using-environment-variables
-        ...options,
-        // dbName: "./migrations/mikro/tmp.db",
-        dbName: tmpDbPath,
+        dbName: "mikro.db",
         type: "sqlite",
         migrations: {
-            path: mikroPath,
+            path: Utils.normalizePath(process.cwd(), "./src/migrations"),
             generator: KikkoAndOriginalMigrationGenerator,
         },
+        entities: [AuthorEntitySchema, NoteEntitySchema],
+        ...options,
     });
+
+    // const dbPath = Utils.normalizePath(orm.config.get("migrations").path, "./migrations.db");
 
     const migrator = orm.getMigrator();
     await migrator.createMigration();
@@ -39,8 +34,11 @@ export const generateQueryBuilderClientAndMigrations = async (options?: Options)
 
     const cli = new Cli();
     // TODO allow passing the out-file path
-    await cli.run(["--url", tmpDbPath, "--dialect", "sqlite", "--out-file", "./src/query-builder.ts"]);
-
-    await remove(mikroPath);
-    await move(Utils.normalizePath(mikroPath, "../migrations-kikko"), mikroPath);
+    await cli.run(["--url", orm.config.get("dbName"), "--dialect", "sqlite", "--out-file", "./src/db-interface.ts"]);
 };
+
+// const entitiesPath = Utils.normalizePath(process.cwd(), "./src/entities");
+// const glob = entitiesPath + "/**/*.entity.ts";
+// const entities = await fg(glob);
+
+void generateQueryBuilderClientAndMigrations();

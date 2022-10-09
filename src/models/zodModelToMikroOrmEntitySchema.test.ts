@@ -1,15 +1,13 @@
 import { MikroORM } from "@mikro-orm/core";
 import { expect, it } from "vitest";
 import { z } from "zod";
-import { createEntityScope } from "./createEntityScope";
+import { defineZodEntity } from "./createEntityScope";
 import { zodModelToMikroOrmEntitySchema } from "./zodModelToMikroOrmEntitySchema";
 
 import { KikkoInMemoryMigrationGenerator } from "./KikkoMigrationGenerator";
-import { qb } from "../db-client";
-import { CompiledQuery } from "kysely";
+import { qb, getSqlFromCompiledQuery } from "../db-client";
 
 it("zodModelToMikroOrmEntitySchema", async () => {
-    const { defineZodEntity } = createEntityScope();
     const NoteModel = defineZodEntity(
         "Note",
         z.object({ id: z.number(), title: z.string(), content: z.string() })
@@ -138,7 +136,7 @@ it("zodModelToMikroOrmEntitySchema", async () => {
           "oui",
       ]
     `);
-    expect(replaceSqlParameters(query.sql, query.parameters)).toMatchInlineSnapshot(
+    expect(getSqlFromCompiledQuery(query)).toMatchInlineSnapshot(
         '"select "content", "title" from "note" where "author_id" = 1 and "content" like 123 or "title" not ilike oui"'
     );
     //   await migrator.createMigration(); // creates file Migration20191019195930.ts
@@ -150,9 +148,3 @@ it("zodModelToMikroOrmEntitySchema", async () => {
     //   await migrator.down({ to: 'down-to-name' }); // runs migrations down to given version
     //   await migrator.down({ to: 0 }); // migrates down to the first version
 });
-
-const replaceSqlParameters = (sql: string, parameters: readonly unknown[] | any[]) => {
-    let i = 0;
-    return sql.replace(/\?/g, () => String(parameters[i++]));
-};
-const getSqlFromCompiledQuery = (query: CompiledQuery) => replaceSqlParameters(query.sql, query.parameters);

@@ -419,7 +419,7 @@ module.exports = defineConfig({
     overrides: [
         {
             // or whatever matches stories specified in .storybook/main.js
-            files: ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+            files: ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)", "./src/migrations/**", "./src/migrations-kikko/**"],
             rules: {
                 "arca/no-default-export": "off",
                 "import/no-unused-modules": "off",

@@ -3,7 +3,6 @@ import { sql, useQueries } from "@kikko-land/react";
 import { Button } from "@mantine/core";
 
 import { List } from "./List";
-import { builder } from "./QueryBuilder";
 import { WithDb } from "./WithDb";
 
 export const OfflineDemo = () => {
@@ -23,7 +22,6 @@ const DemoContent = () => {
         sql.raw("PRAGMA table_info(migrations);"),
     ]);
     console.log(notesColumns.data);
-    console.log(builder);
     // const db = useDbStrict();
 
     return (

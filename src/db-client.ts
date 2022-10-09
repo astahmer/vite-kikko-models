@@ -1,7 +1,8 @@
+import type { CompiledQuery } from "kysely";
 import { DummyDriver, Kysely, SqliteAdapter, SqliteIntrospector, SqliteQueryCompiler } from "kysely";
-import type { DB } from "kysely-codegen";
 
-// pnpm kysely-codegen --url ./mikro-server.db --dialect sqlite --out-file ./src/db-client.ts
+import type { DB } from "./db-interface";
+
 export const qb = new Kysely<DB>({
     dialect: {
         createAdapter() {
@@ -18,3 +19,10 @@ export const qb = new Kysely<DB>({
         },
     },
 });
+
+const replaceSqlParameters = (sql: string, parameters: readonly unknown[] | any[]) => {
+    let i = 0;
+    return sql.replace(/\?/g, () => String(parameters[i++]));
+};
+
+export const getSqlFromCompiledQuery = (query: CompiledQuery) => replaceSqlParameters(query.sql, query.parameters);
