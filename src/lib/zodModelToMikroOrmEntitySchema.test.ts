@@ -1,7 +1,7 @@
 import { MikroORM } from "@mikro-orm/core";
 import { expect, it } from "vitest";
 import { z } from "zod";
-import { defineZodEntity } from "./createEntityScope";
+import { defineZodEntity } from "./ZodEntity";
 import { zodModelToMikroOrmEntitySchema } from "./zodModelToMikroOrmEntitySchema";
 
 import { KikkoInMemoryMigrationGenerator } from "./KikkoMigrationGenerator";

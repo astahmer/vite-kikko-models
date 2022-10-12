@@ -115,52 +115,84 @@ const parseZodDef = ({ def, propName, entity }: SelectParserArgs): undefined | P
     const typeName = (def as any).typeName as ZodFirstPartyTypeKind;
 
     switch (typeName) {
-        case ZodFirstPartyTypeKind.ZodString:
+        case ZodFirstPartyTypeKind.ZodString: {
             return parseString();
+        }
+
         case ZodFirstPartyTypeKind.ZodNumber:
-        case ZodFirstPartyTypeKind.ZodBigInt:
+        case ZodFirstPartyTypeKind.ZodBigInt: {
             return parseNumber();
+        }
+
         case ZodFirstPartyTypeKind.ZodObject:
-        case ZodFirstPartyTypeKind.ZodMap:
+        case ZodFirstPartyTypeKind.ZodMap: {
             return parseObject({ def, propName, entity });
-        case ZodFirstPartyTypeKind.ZodBoolean:
+        }
+
+        case ZodFirstPartyTypeKind.ZodBoolean: {
             return parseBoolean();
-        case ZodFirstPartyTypeKind.ZodDate:
+        }
+
+        case ZodFirstPartyTypeKind.ZodDate: {
             return parseDate();
+        }
+
         case ZodFirstPartyTypeKind.ZodArray:
         case ZodFirstPartyTypeKind.ZodSet:
-        case ZodFirstPartyTypeKind.ZodTuple:
+        case ZodFirstPartyTypeKind.ZodTuple: {
             // currentPath.push(path);
             return parseArray({ def, propName, entity });
+        }
+
         case ZodFirstPartyTypeKind.ZodUnion:
-        case ZodFirstPartyTypeKind.ZodDiscriminatedUnion:
+        case ZodFirstPartyTypeKind.ZodDiscriminatedUnion: {
             // TODO   return parseUnionDef(def, refs);
             return;
-        case ZodFirstPartyTypeKind.ZodIntersection:
+        }
+
+        case ZodFirstPartyTypeKind.ZodIntersection: {
             // TODO   return parseIntersectionDef(def, refs);
             return;
-        case ZodFirstPartyTypeKind.ZodRecord:
+        }
+
+        case ZodFirstPartyTypeKind.ZodRecord: {
             // TODO   return parseRecordDef(def, refs);
             return;
-        case ZodFirstPartyTypeKind.ZodLiteral:
+        }
+
+        case ZodFirstPartyTypeKind.ZodLiteral: {
             // TODO   return parseLiteralDef(def, refs);
             return;
-        case ZodFirstPartyTypeKind.ZodEnum:
+        }
+
+        case ZodFirstPartyTypeKind.ZodEnum: {
             // TODO   return parseEnumDef(def);
             return;
-        case ZodFirstPartyTypeKind.ZodNativeEnum:
+        }
+
+        case ZodFirstPartyTypeKind.ZodNativeEnum: {
             // TODO   return parseNativeEnumDef(def);
             return;
-        case ZodFirstPartyTypeKind.ZodLazy:
+        }
+
+        case ZodFirstPartyTypeKind.ZodLazy: {
             return parseZodDef({ def: (def as ZodLazyDef).getter()._def, propName, entity });
-        case ZodFirstPartyTypeKind.ZodDefault:
+        }
+
+        case ZodFirstPartyTypeKind.ZodDefault: {
             return parseInner({ def, propName, entity });
+        }
+
         case ZodFirstPartyTypeKind.ZodNullable:
-        case ZodFirstPartyTypeKind.ZodOptional:
+        case ZodFirstPartyTypeKind.ZodOptional: {
             return parseInner({ def, propName, entity });
+        }
+
         case ZodFirstPartyTypeKind.ZodBranded:
-        case ZodFirstPartyTypeKind.ZodUndefined:
+        case ZodFirstPartyTypeKind.ZodUndefined: {
             return parseNext({ def, propName, entity });
+        }
+
         // ignore those
         case ZodFirstPartyTypeKind.ZodNull:
         case ZodFirstPartyTypeKind.ZodNaN:
@@ -170,10 +202,13 @@ const parseZodDef = ({ def, propName, entity }: SelectParserArgs): undefined | P
         case ZodFirstPartyTypeKind.ZodVoid:
         case ZodFirstPartyTypeKind.ZodPromise:
         case ZodFirstPartyTypeKind.ZodEffects:
-        case ZodFirstPartyTypeKind.ZodFunction:
+        case ZodFirstPartyTypeKind.ZodFunction: {
             return;
-        default:
+        }
+
+        default: {
             return;
+        }
     }
 };
 

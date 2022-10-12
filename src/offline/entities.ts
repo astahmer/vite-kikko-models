@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { zodModelToMikroOrmEntitySchema } from "@/models/zodModelToMikroOrmEntitySchema";
+import { zodModelToMikroOrmEntitySchema } from "@/lib/zodModelToMikroOrmEntitySchema";
 
-import { defineZodEntity } from "./ZodEntity";
+import { defineZodEntity } from "../lib/ZodEntity";
 
 const AuthorModel = defineZodEntity(
     "Author",

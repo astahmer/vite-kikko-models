@@ -1,10 +1,13 @@
-import { deleteFrom, insert, like$, select, update } from "@kikko-land/query-builder";
-import { makeId, runQuery, sql, useCacheQuery, useQuery, useRunQuery } from "@kikko-land/react";
+import { runQuery, useRunQuery } from "@kikko-land/react";
 import { Box, Button, Input, Table } from "@mantine/core";
 import humanId from "human-id";
+import type { Selectable } from "kysely";
 import { chunk } from "pastable";
 import { useState } from "react";
 import Highlighter from "react-highlight-words";
+
+import type { DatabaseSchema } from "@/db-client";
+import { getSql, queryBuilder, runDbQuery, useDbQuery } from "@/db-client";
 
 import { usePaginator } from "./usePaginator";
 
@@ -16,30 +19,25 @@ import { usePaginator } from "./usePaginator";
 //     },
 // } as const;
 
-type INoteRow = {
-    id: string;
-    title: string;
-    content: string;
-    createdAt: number;
-    updatedAt: number;
-};
-const notesTable = sql.table("note");
-
-const Row = ({ row, textToSearch }: { row: INoteRow; textToSearch: string }) => {
+const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; textToSearch: string }) => {
     const [deleteRecord, deleteRecordState] = useRunQuery((db) => async () => {
-        await runQuery(db, deleteFrom(notesTable.name).where({ id: row.id }));
+        await runQuery(db, getSql(queryBuilder.deleteFrom("note").where("id", "=", row.id)));
     });
 
+    // TODO useRunQuery type-safety
     const [updateRecord, updateRecordState] = useRunQuery((db) => async () => {
-        await runQuery(
+        const oui = await runDbQuery(
             db,
-            update(notesTable.name)
+            queryBuilder
+                .updateTable("note")
                 .set({
                     title: row.title + " updated!",
                     content: row.content + " updated!",
                 })
-                .where({ id: row.id })
+                .where("id", "=", row.id)
         );
+        console.log(oui);
+        return oui;
     });
 
     return (
@@ -48,8 +46,8 @@ const Row = ({ row, textToSearch }: { row: INoteRow; textToSearch: string }) => 
             <td>
                 <Highlighter searchWords={[textToSearch]} autoEscape={true} textToHighlight={row.content} />
             </td>
-            <td>{new Date(row.createdAt).toLocaleString()}</td>
-            <td>{new Date(row.updatedAt).toLocaleString()}</td>
+            {/* <td>{new Date(row.createdAt).toLocaleString()}</td>
+            <td>{new Date(row.updatedAt).toLocaleString()}</td> */}
             <td>
                 <Button.Group orientation="vertical">
                     <Button
@@ -85,11 +83,10 @@ export const List = () => {
     // const notes = useQuery<Note>(select().from(notesTable.name));
     // console.log("notes", notes);
 
-    const baseSql = useCacheQuery(
-        select()
-            .from(notesTable.name)
-            .where(textToSearch ? { content: like$("%" + textToSearch + "%") } : sql.empty)
-    );
+    const query = queryBuilder
+        .selectFrom("note")
+        .selectAll()
+        .if(Boolean(textToSearch), (q) => q.where("content", "like", `%${textToSearch}%`));
 
     const {
         paginatedQuery,
@@ -102,29 +99,29 @@ export const List = () => {
         prevPage,
     } = usePaginator({
         perPage: 10,
-        baseQuery: baseSql,
+        baseQuery: query,
     });
-    const rowsResult = useQuery<INoteRow>(paginatedQuery);
+    const rowsResult = useDbQuery(paginatedQuery);
 
     const [createNotes, createNotesState] = useRunQuery((db) => async (count: number) => {
-        for (const ch of chunk(Array.from(Array(count).keys()), 3000)) {
-            await runQuery(
+        for (const group of chunk(Array.from(Array(count).keys()), 3000)) {
+            await runDbQuery(
                 db,
-                insert(
-                    ch.map((i) => ({
-                        id: makeId(),
+                queryBuilder.insertInto("note").values(
+                    group.map((i) => ({
                         title: humanId({ separator: "-", capitalize: false }),
                         content: humanId({ adjectiveCount: 10, separator: "-", capitalize: false }),
-                        createdAt: Date.now(),
-                        updatedAt: Date.now(),
+                        author_id: 1,
+                        // createdAt: Date.now(),
+                        // updatedAt: Date.now(),
                     }))
-                ).into(notesTable.name)
+                )
             );
         }
     });
 
     const [deleteAll, deleteAllState] = useRunQuery((db) => async () => {
-        await runQuery(db, deleteFrom(notesTable.name));
+        await runDbQuery(db, queryBuilder.deleteFrom("note"));
     });
 
     // const [backendName, setBackendName] = useState("waMinimal");
