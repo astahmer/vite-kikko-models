@@ -16,7 +16,7 @@
         "lint:pick": "eslint-nibble -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache",
         "test": "vitest",
         "coverage": "vitest run --coverage",
-        "migrations:up": "tsx ./src/offline/generateQueryBuilderClientAndMigrations.ts"
+        "migrations:up": "tsx ./src/offline/generateQueryBuilderClientAndMigrations.ts && eslint ./src/{db-interface.ts,migrations,migrations-kikko} --fix"
     },
     "dependencies": {
         "@emotion/react": "^11.10.4",

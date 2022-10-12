@@ -46,8 +46,8 @@ const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; t
             <td>
                 <Highlighter searchWords={[textToSearch]} autoEscape={true} textToHighlight={row.content} />
             </td>
-            {/* <td>{new Date(row.createdAt).toLocaleString()}</td>
-            <td>{new Date(row.updatedAt).toLocaleString()}</td> */}
+            <td>{new Date(row.created_at).toLocaleString()}</td>
+            <td>{new Date(row.updated_at).toLocaleString()}</td>
             <td>
                 <Button.Group orientation="vertical">
                     <Button
@@ -75,13 +75,6 @@ const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; t
 
 export const List = () => {
     const [textToSearch, setTextToSearch] = useState<string>("");
-
-    // const notes = useQuery<Note>(select().from("notes"));
-    // const notesCount = useQueryFirstRow<{ count: number }>(select({ count: sql`COUNT(*)` }).from("notes"));
-    // console.log({ notes, notesCount });
-
-    // const notes = useQuery<Note>(select().from(notesTable.name));
-    // console.log("notes", notes);
 
     const query = queryBuilder
         .selectFrom("note")
@@ -112,8 +105,8 @@ export const List = () => {
                         title: humanId({ separator: "-", capitalize: false }),
                         content: humanId({ adjectiveCount: 10, separator: "-", capitalize: false }),
                         author_id: 1,
-                        // createdAt: Date.now(),
-                        // updatedAt: Date.now(),
+                        created_at: Date.now().toString(),
+                        updated_at: Date.now().toString(),
                     }))
                 )
             );

@@ -19,6 +19,8 @@ const NoteModel = defineZodEntity(
         id: z.number(),
         title: z.string(),
         content: z.string(),
+        createdAt: z.date(),
+        updatedAt: z.date(),
     })
 ).updateProperty("id", { primary: true });
 

@@ -8,6 +8,8 @@ import type { WithChildren } from "pastable";
 const migrations: IMigration[] = Object.values(
     import.meta.glob("../migrations-kikko/*.ts", { eager: true, import: "default" })
 );
+console.log({ migrations });
+
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",
     dbBackend: absurdWebBackend({

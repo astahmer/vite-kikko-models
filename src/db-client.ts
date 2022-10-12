@@ -87,7 +87,9 @@ export const useDbQuery = <
       > => {
     const { shouldTakeFirst, ..._opts } = options ?? {};
 
-    return (shouldTakeFirst ? useQueryFirstRow : useQuery)(builder ? getSql(builder) : 0, _opts) as any;
+    const useQueryFn = shouldTakeFirst ? useQueryFirstRow : useQuery;
+
+    return useQueryFn(builder ? getSql(builder) : 0, _opts) as any;
 };
 
 const tableQueryBuilder = queryBuilder.withTables<WithSqliteMaster>();

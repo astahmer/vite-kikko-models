@@ -1,4 +1,4 @@
-import type { ColumnType } from "kysely";
+import { ColumnType } from "kysely";
 
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
     ? ColumnType<S, I | undefined, U>
@@ -10,21 +10,16 @@ export type Author = {
     name: string;
 };
 
-export type MikroOrmMigrations = {
-    executed_at: Generated<string | null>;
-    id: Generated<number>;
-    name: string | null;
-};
-
 export type Note = {
     author_id: number;
     content: string;
+    created_at: string;
     id: Generated<number>;
     title: string;
+    updated_at: string;
 };
 
 export type DB = {
     author: Author;
-    mikro_orm_migrations: MikroOrmMigrations;
     note: Note;
 };

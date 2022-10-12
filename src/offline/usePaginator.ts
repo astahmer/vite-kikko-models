@@ -25,7 +25,6 @@ export const usePaginator = <DB, Output, Builder extends SelectQueryBuilder<DB, 
         queryBuilder.selectFrom(tableName as any).select(queryBuilder.fn.count<number>("id").as("count")),
         { shouldTakeFirst: true }
     );
-
     const totalCount = countResult.data?.count;
     const totalPages = totalCount !== undefined ? Math.ceil(totalCount / perPage) || 1 : undefined;
 

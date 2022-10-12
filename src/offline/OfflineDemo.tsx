@@ -1,7 +1,7 @@
 import { useRunQuery } from "@kikko-land/react";
 import { Button } from "@mantine/core";
 
-import { schemaHelper } from "@/db-client";
+import { queryBuilder, schemaHelper, useDbQuery } from "@/db-client";
 
 import { List } from "./List";
 import { WithDb } from "./WithDb";
@@ -15,8 +15,8 @@ export const OfflineDemo = () => {
 };
 
 const DemoContent = () => {
-    // const query = useDbQuery(queryBuilder.selectFrom("note").selectAll());
-    // console.log(query.data);
+    const migrations = useDbQuery(queryBuilder.selectFrom("migrations").selectAll());
+    console.log(migrations.data);
 
     // const textToSearch = "aaa";
     // console.log(
@@ -30,7 +30,7 @@ const DemoContent = () => {
 
     const [getTableMetadata, tableMetadata] = useRunQuery((db) => () => schemaHelper.getTableMetadata(db, "note"));
     const [getTables, tables] = useRunQuery((db) => () => schemaHelper.getTables(db));
-    console.log(tableMetadata.data);
+    // console.log(tableMetadata);
 
     return (
         <>
