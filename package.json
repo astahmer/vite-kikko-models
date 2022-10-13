@@ -11,6 +11,7 @@
         "build": "tsc && vite build",
         "serve": "vite preview",
         "format": "prettier --write \"./{src,tests}/**/*\"",
+        "lint:ts": "tsc --noEmit",
         "lint": "eslint -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache",
         "lint:fix": "eslint -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache --fix",
         "lint:pick": "eslint-nibble -c .eslintrc.build.js './src/**/*.{js,jsx,ts,tsx}' --cache",

@@ -5,7 +5,8 @@ import { defineZodEntity } from "./ZodEntity";
 import { zodModelToMikroOrmEntitySchema } from "./zodModelToMikroOrmEntitySchema";
 
 import { KikkoInMemoryMigrationGenerator } from "./KikkoMigrationGenerator";
-import { qb, getSqlFromCompiledQuery } from "../db-client";
+import { queryBuilder } from "../db-client";
+import { printSql } from "./getSql";
 
 it("zodModelToMikroOrmEntitySchema", async () => {
     const NoteModel = defineZodEntity(
@@ -119,25 +120,25 @@ it("zodModelToMikroOrmEntitySchema", async () => {
     `);
     await orm.close(true);
 
-    const query = qb
+    const query = queryBuilder
         .selectFrom("note")
         .select(["content", "title"])
         .where("author_id", "=", 1)
         .where("content", "like", "123")
-        .orWhere("title", "not ilike", "oui")
-        .compile();
-    expect(query.sql).toMatchInlineSnapshot(
+        .orWhere("title", "not ilike", "oui");
+    const compiled = query.compile();
+    expect(compiled.sql).toMatchInlineSnapshot(
         '"select "content", "title" from "note" where "author_id" = ? and "content" like ? or "title" not ilike ?"'
     );
-    expect(query.parameters).toMatchInlineSnapshot(`
+    expect(compiled.parameters).toMatchInlineSnapshot(`
       [
           1,
           "123",
           "oui",
       ]
     `);
-    expect(getSqlFromCompiledQuery(query)).toMatchInlineSnapshot(
-        '"select "content", "title" from "note" where "author_id" = 1 and "content" like 123 or "title" not ilike oui"'
+    expect(printSql(query)).toMatchInlineSnapshot(
+        '"select "content", "title" from "note" where "author_id" = 1 and "content" like "123" or "title" not ilike "oui""'
     );
     //   await migrator.createMigration(); // creates file Migration20191019195930.ts
     //   await migrator.up(); // runs migrations up to the latest

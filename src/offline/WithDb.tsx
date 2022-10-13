@@ -10,11 +10,10 @@ const migrations: IMigration[] = Object.values(
 );
 console.log({ migrations });
 
+const backend = absurdWebBackend({ wasmUrl: sqlWasmUrl });
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",
-    dbBackend: absurdWebBackend({
-        wasmUrl: sqlWasmUrl,
-    }),
+    dbBackend: backend,
     plugins: [reactiveQueriesPlugin(), migrationsPlugin({ migrations })],
 };
 

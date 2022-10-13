@@ -7,7 +7,8 @@ import { useState } from "react";
 import Highlighter from "react-highlight-words";
 
 import type { DatabaseSchema } from "@/db-client";
-import { getSql, queryBuilder, runDbQuery, useDbQuery } from "@/db-client";
+import { queryBuilder, runDbQuery, useDbQuery } from "@/db-client";
+import { getSql } from "@/lib/getSql";
 
 import { usePaginator } from "./usePaginator";
 

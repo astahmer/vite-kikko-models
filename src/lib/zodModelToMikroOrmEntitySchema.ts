@@ -21,7 +21,6 @@ import { ZodFirstPartyTypeKind } from "zod";
 import { type ZodEntity } from "./ZodEntity";
 
 export const zodModelToMikroOrmEntitySchema = (entity: ZodEntity<any>): EntitySchema => {
-    // console.log(entity.schema._def.shape());
     return new EntitySchema<any>({
         name: entity.name,
         properties: Object.fromEntries(

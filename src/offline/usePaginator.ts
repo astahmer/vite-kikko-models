@@ -1,8 +1,7 @@
 import type { AnySelectQueryBuilder, SelectQueryBuilder } from "kysely";
 import { useCallback, useEffect, useState } from "react";
 
-import type { DatabaseSchema } from "@/db-client";
-import { queryBuilder, useDbQuery } from "@/db-client";
+import { queryBuilder, useDbQueryFirstRow } from "@/db-client";
 
 const getFromTableName = (query: AnySelectQueryBuilder) => {
     const from = query.toOperationNode().from.froms.at(0);
@@ -20,10 +19,9 @@ export const usePaginator = <DB, Output, Builder extends SelectQueryBuilder<DB, 
     perPage: number;
     baseQuery: Builder;
 }) => {
-    const tableName = queryBuilder.dynamic.ref<keyof DatabaseSchema>(getFromTableName(baseQuery));
-    const countResult = useDbQuery(
-        queryBuilder.selectFrom(tableName as any).select(queryBuilder.fn.count<number>("id").as("count")),
-        { shouldTakeFirst: true }
+    const tableName = queryBuilder.dynamic.ref(getFromTableName(baseQuery));
+    const countResult = useDbQueryFirstRow(
+        queryBuilder.selectFrom(tableName as any).select(queryBuilder.fn.count<number>("id").as("count"))
     );
     const totalCount = countResult.data?.count;
     const totalPages = totalCount !== undefined ? Math.ceil(totalCount / perPage) || 1 : undefined;
