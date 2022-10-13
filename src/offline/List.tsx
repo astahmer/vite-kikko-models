@@ -1,4 +1,4 @@
-import { runQuery, useRunQuery } from "@kikko-land/react";
+import { runQuery } from "@kikko-land/react";
 import { Box, Button, Input, Table } from "@mantine/core";
 import humanId from "human-id";
 import type { Selectable } from "kysely";
@@ -6,8 +6,7 @@ import { chunk } from "pastable";
 import { useState } from "react";
 import Highlighter from "react-highlight-words";
 
-import type { DatabaseSchema } from "@/db-client";
-import { queryBuilder, runDbQuery, useDbQuery } from "@/db-client";
+import { DatabaseSchema, queryBuilder, runDbQuery, useDbQuery, useRunDbQuery } from "@/db-client";
 import { getSql } from "@/lib/getSql";
 
 import { usePaginator } from "./usePaginator";
@@ -21,12 +20,11 @@ import { usePaginator } from "./usePaginator";
 // } as const;
 
 const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; textToSearch: string }) => {
-    const [deleteRecord, deleteRecordState] = useRunQuery((db) => async () => {
+    const [deleteRecord, deleteRecordState] = useRunDbQuery((db) => async () => {
         await runQuery(db, getSql(queryBuilder.deleteFrom("note").where("id", "=", row.id)));
     });
 
-    // TODO useRunQuery type-safety
-    const [updateRecord, updateRecordState] = useRunQuery((db) => async () => {
+    const [updateRecord, updateRecordState] = useRunDbQuery((db) => async () => {
         const oui = await runDbQuery(
             db,
             queryBuilder
@@ -97,7 +95,7 @@ export const List = () => {
     });
     const rowsResult = useDbQuery(paginatedQuery);
 
-    const [createNotes, createNotesState] = useRunQuery((db) => async (count: number) => {
+    const [createNotes, createNotesState] = useRunDbQuery((db) => async (count: number) => {
         for (const group of chunk(Array.from(Array(count).keys()), 3000)) {
             await runDbQuery(
                 db,
@@ -114,7 +112,7 @@ export const List = () => {
         }
     });
 
-    const [deleteAll, deleteAllState] = useRunQuery((db) => async () => {
+    const [deleteAll, deleteAllState] = useRunDbQuery((db) => async () => {
         await runDbQuery(db, queryBuilder.deleteFrom("note"));
     });
 

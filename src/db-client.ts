@@ -1,5 +1,5 @@
-import type { Falsy, IDbState } from "@kikko-land/react";
-import { runQuery, useQuery, useQueryFirstRow } from "@kikko-land/react";
+import type { Falsy, IDbState, IRunQueryHookResult } from "@kikko-land/react";
+import { runQuery, useQuery, useQueryFirstRow, useRunQuery } from "@kikko-land/react";
 import type { DeleteQueryBuilder, InsertQueryBuilder, SelectQueryBuilder, UpdateQueryBuilder } from "kysely";
 import { DummyDriver, Kysely, SqliteAdapter, SqliteIntrospector, SqliteQueryCompiler } from "kysely";
 
@@ -32,18 +32,18 @@ export const queryBuilder = new Kysely<DatabaseSchema>({
     },
 });
 
+type QueryBuilderResult<Builder extends AnyQueryBuilder> = Builder extends SelectQueryBuilder<any, any, infer Output>
+    ? Single<Output>
+    : Builder extends UpdateQueryBuilder<any, any, any, infer Output>
+    ? Output
+    : Builder extends DeleteQueryBuilder<any, any, infer Ouput>
+    ? Ouput
+    : Builder extends InsertQueryBuilder<any, any, infer Ouput>
+    ? Ouput
+    : never;
+
 export const runDbQuery = <Builder extends AnyQueryBuilder>(state: IDbState, builder: Builder) =>
-    runQuery<
-        Builder extends SelectQueryBuilder<any, any, infer Output>
-            ? Single<Output>
-            : Builder extends UpdateQueryBuilder<any, any, any, infer Output>
-            ? Output
-            : Builder extends DeleteQueryBuilder<any, any, infer Ouput>
-            ? Ouput
-            : Builder extends InsertQueryBuilder<any, any, infer Ouput>
-            ? Ouput
-            : never
-    >(state, getSql(builder));
+    runQuery<QueryBuilderResult<Builder>>(state, getSql(builder));
 
 type Single<T> = T extends Array<infer U> ? U : T;
 
@@ -66,6 +66,13 @@ export const useDbQueryFirstRow = <Builder extends Falsy | SelectQueryBuilder<an
         _opts
     );
 };
+
+export function useRunDbQuery<Return, Args extends any[]>(
+    cb: (db: IDbState) => (...args: Args) => Promise<Return>,
+    _opts?: UseDbQueryOptions
+): readonly [(...args: Args) => Promise<Return>, IRunQueryHookResult<Return>] {
+    return useRunQuery<any, any>((db) => cb(db) as any, _opts) as any;
+}
 
 type UseDbQueryOptions = {
     suppressLog?: boolean;
