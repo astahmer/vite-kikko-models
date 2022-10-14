@@ -10,7 +10,9 @@ const migrations: IMigration[] = Object.values(
 );
 console.log({ migrations });
 
+// TODO use wa-sqlite
 const backend = absurdWebBackend({ wasmUrl: sqlWasmUrl });
+
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",
     dbBackend: backend,

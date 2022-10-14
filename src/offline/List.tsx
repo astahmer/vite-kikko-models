@@ -1,23 +1,25 @@
 import { runQuery } from "@kikko-land/react";
-import { Box, Button, Input, Table } from "@mantine/core";
+import {
+    ActionIcon,
+    Box,
+    Button,
+    Group,
+    Input,
+    NumberInput,
+    NumberInputHandlers,
+    NumberInputProps,
+    Table,
+} from "@mantine/core";
 import humanId from "human-id";
 import type { Selectable } from "kysely";
 import { chunk } from "pastable";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
 import { DatabaseSchema, queryBuilder, runDbQuery, useDbQuery, useRunDbQuery } from "@/db-client";
 import { getSql } from "@/lib/getSql";
 
 import { usePaginator } from "./usePaginator";
-
-// const backendOptions = {
-//     absurd: { type: "absurd" },
-//     waMinimal: {
-//         type: "wa-sqlite",
-//         vfs: "minimal",
-//     },
-// } as const;
 
 const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; textToSearch: string }) => {
     const [deleteRecord, deleteRecordState] = useRunDbQuery((db) => async () => {
@@ -115,50 +117,29 @@ export const List = () => {
     const [deleteAll, deleteAllState] = useRunDbQuery((db) => async () => {
         await runDbQuery(db, queryBuilder.deleteFrom("note"));
     });
-
-    // const [backendName, setBackendName] = useState("waMinimal");
+    const [count, setCount] = useState(100);
 
     return (
         <>
-            {/* <select
-                value={backendName}
-                onChange={(e) => {
-                    // eslint-disable-next-line no-restricted-globals
-                    history.pushState(
-                        {},
-                        "",
-                        // eslint-disable-next-line no-restricted-globals
-                        location.pathname + "?backend=" + e.target.value
-                    );
-                }}
-            >
-                {Object.entries(backendOptions).map(([name, val]) => (
-                    <option key={name} value={name}>
-                        {name}
-                    </option>
-                ))}
-            </select>
-
-            <br />
-            <br /> */}
-
-            <Button.Group>
-                {[100, 1000, 10_000, 100_000].map((count) => (
-                    <Button
-                        key={count}
-                        onClick={() => void createNotes(count)}
-                        disabled={createNotesState.type === "running" || createNotesState.type === "waitingDb"}
-                    >
-                        {createNotesState.type === "running" ? "Loading..." : `Add  ${nbFormat.format(count)} records!`}
-                    </Button>
-                ))}
+            <Group pt="xl">
+                <BigNumberInput value={count} onChange={(val) => setCount(val!)} />
+                <Button
+                    onClick={() => void createNotes(count)}
+                    disabled={createNotesState.type === "running" || createNotesState.type === "waitingDb"}
+                    loading={createNotesState.type === "running"}
+                >
+                    {createNotesState.type === "running" ? "Loading..." : `Add  ${nbFormat.format(count)} notes!`}
+                </Button>
                 <Button
                     onClick={() => void deleteAll()}
                     disabled={deleteAllState.type === "running" || deleteAllState.type === "waitingDb"}
+                    color="red"
+                    variant="outline"
+                    loading={deleteAllState.type === "running"}
                 >
-                    {deleteAllState.type === "running" ? "Loading..." : "Delete all records!"}
+                    {deleteAllState.type === "running" ? "Loading..." : "Delete all notes!"}
                 </Button>
-            </Button.Group>
+            </Group>
 
             <Box mt="xl" />
 
@@ -213,3 +194,29 @@ export const List = () => {
 };
 
 const nbFormat = new Intl.NumberFormat("en-US");
+
+const BigNumberInput = (props: NumberInputProps) => {
+    const handlers = useRef<NumberInputHandlers>();
+
+    return (
+        <Group spacing={5}>
+            <ActionIcon size={36} variant="default" onClick={() => handlers.current!.decrement()}>
+                –
+            </ActionIcon>
+
+            <NumberInput
+                {...props}
+                hideControls
+                handlersRef={handlers}
+                min={0}
+                max={1000}
+                step={50}
+                styles={{ input: { width: 54, textAlign: "center" } }}
+            />
+
+            <ActionIcon size={36} variant="default" onClick={() => handlers.current!.increment()}>
+                +
+            </ActionIcon>
+        </Group>
+    );
+};

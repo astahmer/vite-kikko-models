@@ -14,6 +14,7 @@ type KikkoMigration = {
 };
 
 export type DatabaseSchema = Omit<DB, "mikro_orm_migrations"> & { migrations: KikkoMigration };
+export type DatabaseTable = keyof DatabaseSchema;
 
 export const queryBuilder = new Kysely<DatabaseSchema>({
     dialect: {
