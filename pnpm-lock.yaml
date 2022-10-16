@@ -22,6 +22,8 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.40.0
   '@typescript-eslint/parser': ^5.40.0
   '@vitejs/plugin-react': ^2.1.0
+  '@zag-js/pagination': ^0.0.1
+  '@zag-js/react': ^0.1.18
   better-sqlite3: ^7.6.2
   dayjs: ^1.11.5
   eslint: ^8.25.0
@@ -79,6 +81,8 @@ dependencies:
   '@mikro-orm/sqlite': 5.4.2_ji54ajakbumxesq245uwmakvoe
   '@tanstack/react-query': 4.12.0_biqbaboplfbrettd7655fr4n2y
   '@types/fs-extra': 9.0.13
+  '@zag-js/pagination': 0.0.1
+  '@zag-js/react': 0.1.18_react@18.2.0
   better-sqlite3: 7.6.2
   dayjs: 1.11.5
   fast-glob: 3.2.12
@@ -1535,6 +1539,44 @@ packages:
       - supports-color
     dev: true
 
+  /@zag-js/core/0.1.12:
+    resolution: {integrity: sha512-92QVG6O0Txr28PCAIk1FhWrB4BoYc4MJOWxpazqB7PoLz93+sNytCI0cMOEJnLdu0Qy/WvATYiqifuH92Qa1AA==}
+    dependencies:
+      '@zag-js/store': 0.1.4
+      klona: 2.0.5
+    dev: false
+
+  /@zag-js/pagination/0.0.1:
+    resolution: {integrity: sha512-Orag2QUkB16Eb/BSB1eYHYtsa0Sz5eHOuX8JtjgIsGR/K4bD7TqfIn9T53biDFr8ioxFw5tAyTt8NKM9n8L+BA==}
+    dependencies:
+      '@zag-js/core': 0.1.12
+      '@zag-js/types': 0.2.7
+    dev: false
+
+  /@zag-js/react/0.1.18_react@18.2.0:
+    resolution: {integrity: sha512-twH4a0QmbzACXPOj2CUaSB7X8nn3czYwrqMupI5XegeqywoOBBYk+qzQEwbbuaY6sZdRqTtNpeh70POLCZWUCw==}
+    peerDependencies:
+      react: '>=18.0.0'
+    dependencies:
+      '@zag-js/core': 0.1.12
+      '@zag-js/store': 0.1.4
+      '@zag-js/types': 0.2.7
+      proxy-compare: 2.3.0
+      react: 18.2.0
+    dev: false
+
+  /@zag-js/store/0.1.4:
+    resolution: {integrity: sha512-Mq3IwpPvoOzbNqWGcH/t0u7M3IpXTHmU+YeyYmZy8aD+kUrMx8s4IY8fZvnrIgOZrL7Rb45GRrRNpEJfGmTGFg==}
+    dependencies:
+      proxy-compare: 2.3.0
+    dev: false
+
+  /@zag-js/types/0.2.7:
+    resolution: {integrity: sha512-UZn+n6XjPMC9NjZZcXKTDeBJ8ere1xWmKn/JjodIRe5L8xCPw8d288JF3EmXBeZQokmQyQDL5hBXYxpA4tKfRQ==}
+    dependencies:
+      csstype: 3.1.0
+    dev: false
+
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
     dev: false
@@ -2285,6 +2327,10 @@ packages:
 
   /csstype/3.0.9:
     resolution: {integrity: sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==}
+    dev: false
+
+  /csstype/3.1.0:
+    resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
     dev: false
 
   /csstype/3.1.1:
@@ -4377,6 +4423,11 @@ packages:
       json-buffer: 3.0.0
     dev: true
 
+  /klona/2.0.5:
+    resolution: {integrity: sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==}
+    engines: {node: '>= 8'}
+    dev: false
+
   /knex/2.3.0_better-sqlite3@7.6.2:
     resolution: {integrity: sha512-WMizPaq9wRMkfnwKXKXgBZeZFOSHGdtoSz5SaLAVNs3WRDfawt9O89T4XyH52PETxjV8/kRk0Yf+8WBEP/zbYw==}
     engines: {node: '>=12'}
@@ -5452,6 +5503,10 @@ packages:
   /proto-list/1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
     dev: true
+
+  /proxy-compare/2.3.0:
+    resolution: {integrity: sha512-c3L2CcAi7f7pvlD0D7xsF+2CQIW8C3HaYx2Pfgq8eA4HAl3GAH6/dVYsyBbYF/0XJs2ziGLrzmz5fmzPm6A0pQ==}
+    dev: false
 
   /pseudomap/1.0.2:
     resolution: {integrity: sha512-b/YwNhb8lk1Zz2+bXXpS/LK9OisiZZ1SNsSLxN1x2OXVEhW2Ckr/7mWE5vrC1ZTiJlD9g19jWszTmJsB+oEpFQ==}

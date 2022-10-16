@@ -5,7 +5,7 @@ import { DummyDriver, Kysely, SqliteAdapter, SqliteIntrospector, SqliteQueryComp
 
 import type { DB, Generated } from "./db-interface";
 import { getSql } from "./lib/getSql";
-import type { AnyQueryBuilder } from "./lib/types";
+import type { AnyQueryBuilder, SchemaTableMetadata } from "./lib/types";
 
 type KikkoMigration = {
     id: Generated<number>;
@@ -14,7 +14,8 @@ type KikkoMigration = {
 };
 
 export type DatabaseSchema = Omit<DB, "mikro_orm_migrations"> & { migrations: KikkoMigration };
-export type DatabaseTable = keyof DatabaseSchema;
+export type DatabaseTableName = keyof DatabaseSchema;
+export type DatabaseTable = SchemaTableMetadata<DatabaseSchema>;
 
 export const queryBuilder = new Kysely<DatabaseSchema>({
     dialect: {

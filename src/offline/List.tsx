@@ -8,6 +8,7 @@ import {
     NumberInput,
     NumberInputHandlers,
     NumberInputProps,
+    Pagination,
     Table,
 } from "@mantine/core";
 import humanId from "human-id";
@@ -82,20 +83,8 @@ export const List = () => {
         .selectAll()
         .if(Boolean(textToSearch), (q) => q.where("content", "like", `%${textToSearch}%`));
 
-    const {
-        paginatedQuery,
-        totalPages,
-        currentPage,
-        totalCount,
-        isNextPageAvailable,
-        isPrevPageAvailable,
-        nextPage,
-        prevPage,
-    } = usePaginator({
-        perPage: 10,
-        baseQuery: query,
-    });
-    const rowsResult = useDbQuery(paginatedQuery);
+    const paginator = usePaginator(query, 10);
+    const rowsResult = useDbQuery(paginator.query);
 
     const [createNotes, createNotesState] = useRunDbQuery((db) => async (count: number) => {
         for (const group of chunk(Array.from(Array(count).keys()), 3000)) {
@@ -153,7 +142,7 @@ export const List = () => {
 
             <Box mt="xl" />
 
-            <div>Total found records: {totalCount !== undefined ? totalCount : "Loading..."}</div>
+            <div>Total found records: {paginator.count !== undefined ? paginator.count : "Loading..."}</div>
 
             <Box mt="xl" />
 
@@ -174,21 +163,30 @@ export const List = () => {
             </Table>
 
             <Box mt="xl" />
+            <Pagination ml="auto" total={paginator.totalPages} onChange={paginator.setPage} />
 
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                <Box mr="auto">
-                    Page: {currentPage}
-                    {totalPages !== undefined && ` of ${totalPages}`}
+            {paginator.totalPages > 1 && (
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                    <Box mr="auto">
+                        Page: {paginator.page} / {paginator.totalPages}
+                    </Box>
+                    <Button.Group {...paginator.rootProps}>
+                        <Button {...paginator.prevItemProps}>Prev page</Button>
+                        {paginator.pages.map((page, i) => {
+                            return page.type === "page" ? (
+                                <Button key={page.value} {...{ ...paginator.getItemProps(page) }}>
+                                    {page.value}
+                                </Button>
+                            ) : (
+                                <Button key={`ellipsis-${i}`} {...{ ...paginator.getEllipsisProps({ index: i }) }}>
+                                    &#8230;
+                                </Button>
+                            );
+                        })}
+                        <Button {...paginator.nextItemProps}>Next page</Button>
+                    </Button.Group>
                 </Box>
-                <Button.Group>
-                    <Button disabled={!isPrevPageAvailable} onClick={prevPage}>
-                        Prev page
-                    </Button>
-                    <Button disabled={!isNextPageAvailable} onClick={nextPage}>
-                        Next page
-                    </Button>
-                </Button.Group>
-            </Box>
+            )}
         </>
     );
 };
@@ -209,7 +207,7 @@ const BigNumberInput = (props: NumberInputProps) => {
                 hideControls
                 handlersRef={handlers}
                 min={0}
-                max={1000}
+                max={100_000}
                 step={50}
                 styles={{ input: { width: 54, textAlign: "center" } }}
             />

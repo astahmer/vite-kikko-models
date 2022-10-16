@@ -23,6 +23,9 @@ const NoteModel = defineZodEntity(
         updatedAt: z.date(),
     })
 ).updateProperty("id", { primary: true });
+// TODO kikko middleware ?
+// .updateProperty("createdAt", { onCreate: () => new Date() })
+// .updateProperty("updatedAt", { onUpdate: () => new Date() });
 
 export const AuthorEntitySchema = zodModelToMikroOrmEntitySchema(AuthorModel.oneToMany("notes", NoteModel));
 export const NoteEntitySchema = zodModelToMikroOrmEntitySchema(NoteModel.manyToOne("author", AuthorModel));

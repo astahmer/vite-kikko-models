@@ -1,69 +1,40 @@
-import type { AnySelectQueryBuilder, SelectQueryBuilder } from "kysely";
-import { useCallback, useEffect, useState } from "react";
+import type { SelectQueryBuilder } from "kysely";
 
 import { queryBuilder, useDbQueryFirstRow } from "@/db-client";
+import * as pagination from "@zag-js/pagination";
+import { normalizeProps, useMachine } from "@zag-js/react";
+import { useEffect } from "react";
 
-const getFromTableName = (query: AnySelectQueryBuilder) => {
-    const from = query.toOperationNode().from.froms.at(0);
-    if (from?.kind === "TableNode") {
-        return from.table.identifier.name;
-    }
-
-    throw new Error("Unsupported from type");
-};
-
-export const usePaginator = <DB, Output, Builder extends SelectQueryBuilder<DB, keyof DB, Output>>({
-    perPage,
-    baseQuery,
-}: {
-    perPage: number;
-    baseQuery: Builder;
-}) => {
-    const tableName = queryBuilder.dynamic.ref(getFromTableName(baseQuery));
+export const usePaginator = <DB, Output, Builder extends SelectQueryBuilder<DB, keyof DB, Output>>(
+    baseQuery: Builder,
+    pageSize: number
+) => {
     const countResult = useDbQueryFirstRow(
-        queryBuilder.selectFrom(tableName as any).select(queryBuilder.fn.count<number>("id").as("count"))
+        queryBuilder.selectFrom(baseQuery as any).select(queryBuilder.fn.count<number>("id").as("count"))
     );
-    const totalCount = countResult.data?.count;
-    const totalPages = totalCount !== undefined ? Math.ceil(totalCount / perPage) || 1 : undefined;
+    const count = countResult.data?.count ?? 0;
+    const [state, send] = useMachine(pagination.machine({ id: "pagination", count, pageSize }));
 
-    const [currentPage, setPage] = useState(1);
+    const api = pagination.connect(state, send, normalizeProps);
 
+    // Synchronize count query result with pagination machine
     useEffect(() => {
-        if (totalPages === undefined) return;
-        if (totalPages === 0) {
-            setPage(1);
-
-            return;
+        if (count !== state.context.count) {
+            api.setCount(count);
         }
+    }, [api, count, state.context.count]);
 
-        if (currentPage > totalPages) {
-            setPage(totalPages);
+    // Synchronize pageSize prop option with pagination machine
+    useEffect(() => {
+        if (pageSize !== state.context.pageSize) {
+            api.setPageSize(pageSize);
         }
-    }, [currentPage, totalPages]);
-
-    const isNextPageAvailable = totalPages !== undefined ? currentPage < totalPages : false;
-    const isPrevPageAvailable = currentPage > 1;
-
-    const nextPage = useCallback(() => {
-        if (isNextPageAvailable) {
-            setPage(currentPage + 1);
-        }
-    }, [currentPage, isNextPageAvailable]);
-
-    const prevPage = useCallback(() => {
-        if (isPrevPageAvailable) {
-            setPage(currentPage - 1);
-        }
-    }, [currentPage, isPrevPageAvailable]);
+    }, [api, pageSize, state.context.pageSize]);
 
     return {
-        paginatedQuery: baseQuery.limit(perPage).offset(perPage * (currentPage - 1)) as typeof baseQuery,
-        totalPages,
-        currentPage,
-        totalCount,
-        isNextPageAvailable,
-        isPrevPageAvailable,
-        nextPage,
-        prevPage,
+        ...api,
+        count,
+        pageSize,
+        query: baseQuery.limit(pageSize).offset(pageSize * (api.page - 1)) as typeof baseQuery,
     };
 };
