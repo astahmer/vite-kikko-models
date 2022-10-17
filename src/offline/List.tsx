@@ -35,6 +35,7 @@ const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; t
                 .set({
                     title: row.title + " updated!",
                     content: row.content + " updated!",
+                    updated_at: new Date().toString(),
                 })
                 .where("id", "=", row.id)
         );

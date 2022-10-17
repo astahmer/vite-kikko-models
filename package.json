@@ -42,7 +42,7 @@
         "fs-extra": "^10.1.0",
         "human-id": "^4.0.0",
         "kysely": "^0.22.0",
-        "kysely-codegen": "^0.6.2",
+        "kysely-codegen": "^0.7.0",
         "mantine-data-grid": "^0.0.20",
         "pastable": "^2.0.13",
         "react": "^18.2.0",
@@ -82,10 +82,10 @@
         "tsx": "^3.10.1",
         "type-fest": "^3.1.0",
         "typescript": "^4.8.4",
-        "vite": "^3.1.7",
+        "vite": "^3.1.8",
         "vite-plugin-checker": "^0.5.1",
         "vite-plugin-compress": "^2.1.1",
-        "vitest": "^0.24.1"
+        "vitest": "^0.24.3"
     },
     "mikro-orm": {
         "useTsNode": true,
