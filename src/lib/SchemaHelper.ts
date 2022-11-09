@@ -1,5 +1,4 @@
-import type { IDbState } from "@kikko-land/react";
-import { runQuery } from "@kikko-land/react";
+import type { IDb } from "@kikko-land/react";
 import { sql as kSql } from "kysely";
 
 import { queryBuilder } from "../db-client";
@@ -17,15 +16,14 @@ const getTableListSql = () =>
     );
 export class SchemaHelper<DbSchema> {
     /** @see https://github.com/koskimas/kysely/blob/2e9420f4592a371e982bba8a7269125c621bc47d/src/dialect/sqlite/sqlite-introspector.ts#L79 */
-    getTableList(db: IDbState) {
-        return runQuery<WithSqliteMaster["sqlite_master"]>(db, getTableListSql());
+    getTableList(db: IDb) {
+        return db.runQuery<WithSqliteMaster["sqlite_master"]>(getTableListSql());
     }
 
     /** @see https://github.com/koskimas/kysely/blob/2e9420f4592a371e982bba8a7269125c621bc47d/src/dialect/sqlite/sqlite-introspector.ts#L79 */
-    async getTableMetadata(db: IDbState, tableName: keyof DbSchema) {
+    async getTableMetadata(db: IDb, tableName: keyof DbSchema) {
         // Get the SQL that was used to create the table.
-        const createSql = await runQuery<{ sql: string | undefined }>(
-            db,
+        const createSql = await db.runQuery<{ sql: string | undefined }>(
             getSql(
                 tableQueryBuilder
                     .selectFrom("sqlite_master")
@@ -41,8 +39,7 @@ export class SchemaHelper<DbSchema> {
             ?.split(/\s+/)?.[0]
             ?.replace(/["`]/g, "");
 
-        const columns = await runQuery<PragmaTableInfo>(
-            db,
+        const columns = await db.runQuery<PragmaTableInfo>(
             getSql(
                 tableQueryBuilder
                     .selectFrom(kSql<PragmaTableInfo>`pragma_table_info(${tableName})`.as("table_info"))
@@ -63,7 +60,7 @@ export class SchemaHelper<DbSchema> {
         };
     }
 
-    async getTables(db: IDbState) {
+    async getTables(db: IDb) {
         const tableNames = await this.getTableList(db);
         return Promise.all(tableNames.map((row) => this.getTableMetadata(db, row.name as keyof DbSchema)));
     }

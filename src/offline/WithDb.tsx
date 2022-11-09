@@ -1,6 +1,13 @@
+// import { waSqliteWebBackend } from "@kikko-land/wa-sqlite-web-backend";
 import { absurdWebBackend } from "@kikko-land/absurd-web-backend";
-import type { IInitDbClientConfig, IMigration } from "@kikko-land/react";
-import { DbProvider, EnsureDbLoaded, migrationsPlugin, reactiveQueriesPlugin } from "@kikko-land/react";
+import {
+    DbsHolder,
+    EnsureDbLoaded,
+    IInitDbClientConfig,
+    IMigration,
+    migrationsPlugin,
+    reactiveQueriesPlugin,
+} from "@kikko-land/react";
 // For Vite:
 import sqlWasmUrl from "@kikko-land/sql.js/dist/sql-wasm.wasm?url";
 import type { WithChildren } from "pastable";
@@ -10,8 +17,10 @@ const migrations: IMigration[] = Object.values(
 );
 console.log({ migrations });
 
-// TODO use wa-sqlite
+// TODO
+// const backend = waSqliteWebBackend({ wasmUrl: sqlWasmUrl });
 const backend = absurdWebBackend({ wasmUrl: sqlWasmUrl });
+console.log(backend);
 
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",
@@ -21,8 +30,8 @@ const config: IInitDbClientConfig = {
 
 export const WithDb = ({ children }: WithChildren) => {
     return (
-        <DbProvider config={config}>
+        <DbsHolder defaultDbConfig={config}>
             <EnsureDbLoaded fallback={<div>Loading db...</div>}>{children}</EnsureDbLoaded>
-        </DbProvider>
+        </DbsHolder>
     );
 };

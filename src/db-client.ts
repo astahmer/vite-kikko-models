@@ -1,5 +1,9 @@
-import type { Falsy, IDbState, IRunQueryHookResult } from "@kikko-land/react";
-import { runQuery, useQuery, useQueryFirstRow, useRunQuery } from "@kikko-land/react";
+import type { Falsy, IDb, IRunQueryHookResult } from "@kikko-land/react";
+import {
+    useDbQuery as useKikkoQuery,
+    useFirstRowDbQuery as useKikkoQueryFirstRow,
+    useRunDbQuery as useKikkoRunDbQuery,
+} from "@kikko-land/react";
 import type { DeleteQueryBuilder, InsertQueryBuilder, SelectQueryBuilder, UpdateQueryBuilder } from "kysely";
 import { DummyDriver, Kysely, SqliteAdapter, SqliteIntrospector, SqliteQueryCompiler } from "kysely";
 
@@ -44,16 +48,15 @@ type QueryBuilderResult<Builder extends AnyQueryBuilder> = Builder extends Selec
     ? Ouput
     : never;
 
-export const runDbQuery = <Builder extends AnyQueryBuilder>(state: IDbState, builder: Builder) =>
-    runQuery<QueryBuilderResult<Builder>>(state, getSql(builder));
-
 type Single<T> = T extends Array<infer U> ? U : T;
+export const runDbQuery = <Builder extends AnyQueryBuilder>(state: IDb, builder: Builder) =>
+    state.runQuery<QueryBuilderResult<Builder>>(getSql(builder));
 
 export const useDbQuery = <Builder extends Falsy | SelectQueryBuilder<any, any, any>>(
     builder: Builder | Falsy,
     _opts?: UseDbQueryOptions
 ) => {
-    return useQuery<Builder extends SelectQueryBuilder<any, any, infer Output> ? Output : Falsy>(
+    return useKikkoQuery<Builder extends SelectQueryBuilder<any, any, infer Output> ? Output : Falsy>(
         builder ? getSql(builder) : 0,
         _opts
     );
@@ -63,17 +66,17 @@ export const useDbQueryFirstRow = <Builder extends Falsy | SelectQueryBuilder<an
     builder: Builder | Falsy,
     _opts?: UseDbQueryOptions
 ) => {
-    return useQueryFirstRow<Builder extends SelectQueryBuilder<any, any, infer Output> ? Output : Falsy>(
+    return useKikkoQueryFirstRow<Builder extends SelectQueryBuilder<any, any, infer Output> ? Output : Falsy>(
         builder ? getSql(builder) : 0,
         _opts
     );
 };
 
 export function useRunDbQuery<Return, Args extends any[]>(
-    cb: (db: IDbState) => (...args: Args) => Promise<Return>,
+    cb: (db: IDb) => (...args: Args) => Promise<Return>,
     _opts?: UseDbQueryOptions
 ): readonly [(...args: Args) => Promise<Return>, IRunQueryHookResult<Return>] {
-    return useRunQuery<any, any>((db) => cb(db) as any, _opts) as any;
+    return useKikkoRunDbQuery<any, any>((db) => cb(db) as any, _opts) as any;
 }
 
 type UseDbQueryOptions = {

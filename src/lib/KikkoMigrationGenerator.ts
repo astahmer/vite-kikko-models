@@ -55,7 +55,7 @@ function generateMigrationFile(className: string, diff: { up: string[]; down: st
 
     return `
     import type { IMigration } from "@kikko-land/react";
-    import { runQuery, sql } from "@kikko-land/react";
+    import { sql } from "@kikko-land/react";
 
     const ${className}: IMigration = {
         up: async (db) => {
@@ -67,7 +67,7 @@ function generateMigrationFile(className: string, diff: { up: string[]; down: st
                     .join(",\n")
             }];
             for (const migration of statements) {
-                await runQuery(db, sql([migration]));
+                await db.runQuery(sql([migration]));
             }
         },
         id: ${timestamp},

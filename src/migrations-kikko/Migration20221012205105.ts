@@ -1,5 +1,5 @@
 import type { IMigration } from "@kikko-land/react";
-import { runQuery, sql } from "@kikko-land/react";
+import { sql } from "@kikko-land/react";
 
 const Migration20221012205105: IMigration = {
     up: async (db) => {
@@ -8,7 +8,7 @@ const Migration20221012205105: IMigration = {
             "alter table 'note' add column 'updated_at' datetime not null;",
         ];
         for (const migration of statements) {
-            await runQuery(db, sql([migration]));
+            await db.runQuery(sql([migration]));
         }
     },
     id: 20_221_012_205_105,

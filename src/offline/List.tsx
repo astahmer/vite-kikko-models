@@ -1,4 +1,3 @@
-import { runQuery } from "@kikko-land/react";
 import type { NumberInputHandlers, NumberInputProps } from "@mantine/core";
 import { ActionIcon, Box, Button, Group, Input, NumberInput, Pagination, Table } from "@mantine/core";
 import humanId from "human-id";
@@ -15,7 +14,7 @@ import { usePaginator } from "./usePaginator";
 
 const Row = ({ row, textToSearch }: { row: Selectable<DatabaseSchema["note"]>; textToSearch: string }) => {
     const [deleteRecord, deleteRecordState] = useRunDbQuery((db) => async () => {
-        await runQuery(db, getSql(queryBuilder.deleteFrom("note").where("id", "=", row.id)));
+        await db.runQuery(getSql(queryBuilder.deleteFrom("note").where("id", "=", row.id)));
     });
 
     const [updateRecord, updateRecordState] = useRunDbQuery((db) => async () => {

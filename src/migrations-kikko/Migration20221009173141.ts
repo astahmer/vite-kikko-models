@@ -1,5 +1,5 @@
 import type { IMigration } from "@kikko-land/react";
-import { runQuery, sql } from "@kikko-land/react";
+import { sql } from "@kikko-land/react";
 
 export const Migration20221009173141: IMigration = {
     up: async (db) => {
@@ -9,7 +9,7 @@ export const Migration20221009173141: IMigration = {
             "create index 'note_author_id_index' on 'note' ('author_id');",
         ];
         for (const migration of statements) {
-            await runQuery(db, sql([migration]));
+            await db.runQuery(sql([migration]));
         }
     },
     id: 20_221_009_173_141,
