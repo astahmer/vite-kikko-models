@@ -1,6 +1,7 @@
 import type { DeleteQueryBuilder, InsertQueryBuilder, SelectQueryBuilder, UpdateQueryBuilder } from "kysely";
-import { AwaitFn } from "pastable";
-import { SchemaHelper } from "./SchemaHelper";
+import type { AwaitFn } from "pastable";
+
+import type { SchemaHelper } from "./SchemaHelper";
 
 export type AnyQueryBuilder<DB = any> =
     | SelectQueryBuilder<DB, any, any>

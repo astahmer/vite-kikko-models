@@ -1,15 +1,22 @@
+import { useDbStrict } from "@kikko-land/react";
+import { useQuery } from "@tanstack/react-query";
 import type { DataGridSortingState } from "mantine-data-grid";
 import { DataGrid, dateFilterFn, highlightFilterValue, numberFilterFn, stringFilterFn } from "mantine-data-grid";
 import { startTransition, useState } from "react";
 
 import type { DatabaseTable } from "@/db-client";
-import { queryBuilder, useDbQuery } from "@/db-client";
+import { runDbQuery } from "@/db-client";
 
-export const TableGrid = ({ table }: { table: DatabaseTable }) => {
+import { getTableQuery } from "./TableGrid";
+
+export const TableGridWithCache = ({ table }: { table: DatabaseTable }) => {
     const [textToSearch, setTextToSearch] = useState("");
     const [sort, setSort] = useState<DataGridSortingState>();
 
-    const rows = useDbQuery(getTableQuery({ table, textToSearch, sort: sort ?? [] }));
+    const db = useDbStrict();
+    const rows = useQuery(["table", table.name, { textToSearch, sort }], () =>
+        runDbQuery(db, getTableQuery({ table, textToSearch, sort: sort ?? [] }))
+    );
 
     return (
         <DataGrid<any>
@@ -49,7 +56,7 @@ export const TableGrid = ({ table }: { table: DatabaseTable }) => {
             }}
             initialState={{ pagination: { pageSize: 20 } }}
             pageSizes={[20, 50, 100, 500].map(String)}
-            loading={rows.type === "loading"}
+            loading={rows.isLoading}
             height="500"
             styles={{
                 scrollArea: { height: "100%" },
@@ -74,30 +81,4 @@ export const TableGrid = ({ table }: { table: DatabaseTable }) => {
             onRow={(row) => ({ onClick: () => console.log(row.original) })}
         />
     );
-};
-
-export const getTableQuery = ({
-    table,
-    textToSearch,
-    sort,
-}: {
-    table: DatabaseTable;
-    textToSearch: string;
-    sort: DataGridSortingState;
-}) => {
-    return queryBuilder
-        .selectFrom(table.name)
-        .selectAll()
-        .if(Boolean(textToSearch), (q) => {
-            const searchableColumns = table.columns.filter((c) => {
-                const dataType = c.dataType.toLowerCase();
-                return dataType === "text" || dataType.includes("char");
-            });
-            let query = q;
-            searchableColumns.forEach(
-                (col) => (query = query.orWhere(col.name as unknown as any, "like", `%${textToSearch}%`))
-            );
-            return query;
-        })
-        .if(sort.length > 0, (q) => q.orderBy(sort[0]!.id as any, sort[0]!.desc ? "desc" : "asc"));
 };

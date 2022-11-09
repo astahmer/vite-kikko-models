@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
-import { compareBasic, makeGetter, ObjectLiteral, SortDirection } from "pastable";
+import type { ObjectLiteral, SortDirection } from "pastable";
+import { compareBasic, makeGetter } from "pastable";
 
 /** Compare (to sort) 2 objects by a common prop key (or dot-delimited path) in given direction (asc|desc, defaults to asc) */
 export function sortCompareFn<T extends ObjectLiteral, K extends keyof T | (string & {})>(

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unused-modules */
-/* eslint-disable sonarjs/no-duplicated-branches */
+
 import type {
     Constructor,
     EmbeddedOptions,

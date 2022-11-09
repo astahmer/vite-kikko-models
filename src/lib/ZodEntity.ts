@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unused-modules */
 import type { ManyToManyOptions, ManyToOneOptions, OneToManyOptions, OneToOneOptions } from "@mikro-orm/core";
 import { type EntityMetadata, type EntityProperty } from "@mikro-orm/core";
 import { z } from "zod";

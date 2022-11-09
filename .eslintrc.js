@@ -11,5 +11,6 @@ module.exports = defineConfig({
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-unused-expressions": "off",
         "no-empty": "off",
+        "prettier/prettier": "off",
     },
 });

@@ -1,9 +1,9 @@
-import type { SelectQueryBuilder } from "kysely";
-
-import { queryBuilder, useDbQueryFirstRow } from "@/db-client";
 import * as pagination from "@zag-js/pagination";
 import { normalizeProps, useMachine } from "@zag-js/react";
+import type { SelectQueryBuilder } from "kysely";
 import { useEffect } from "react";
+
+import { queryBuilder, useDbQueryFirstRow } from "@/db-client";
 
 export const usePaginator = <DB, Output, Builder extends SelectQueryBuilder<DB, keyof DB, Output>>(
     baseQuery: Builder,

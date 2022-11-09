@@ -1,23 +1,14 @@
 import { runQuery } from "@kikko-land/react";
-import {
-    ActionIcon,
-    Box,
-    Button,
-    Group,
-    Input,
-    NumberInput,
-    NumberInputHandlers,
-    NumberInputProps,
-    Pagination,
-    Table,
-} from "@mantine/core";
+import type { NumberInputHandlers, NumberInputProps } from "@mantine/core";
+import { ActionIcon, Box, Button, Group, Input, NumberInput, Pagination, Table } from "@mantine/core";
 import humanId from "human-id";
 import type { Selectable } from "kysely";
 import { chunk } from "pastable";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
-import { DatabaseSchema, queryBuilder, runDbQuery, useDbQuery, useRunDbQuery } from "@/db-client";
+import type { DatabaseSchema } from "@/db-client";
+import { queryBuilder, runDbQuery, useDbQuery, useRunDbQuery } from "@/db-client";
 import { getSql } from "@/lib/getSql";
 
 import { usePaginator } from "./usePaginator";
@@ -165,29 +156,6 @@ export const List = () => {
 
             <Box mt="xl" />
             <Pagination ml="auto" total={paginator.totalPages} onChange={paginator.setPage} />
-
-            {paginator.totalPages > 1 && (
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                    <Box mr="auto">
-                        Page: {paginator.page} / {paginator.totalPages}
-                    </Box>
-                    <Button.Group {...paginator.rootProps}>
-                        <Button {...paginator.prevItemProps}>Prev page</Button>
-                        {paginator.pages.map((page, i) => {
-                            return page.type === "page" ? (
-                                <Button key={page.value} {...{ ...paginator.getItemProps(page) }}>
-                                    {page.value}
-                                </Button>
-                            ) : (
-                                <Button key={`ellipsis-${i}`} {...{ ...paginator.getEllipsisProps({ index: i }) }}>
-                                    &#8230;
-                                </Button>
-                            );
-                        })}
-                        <Button {...paginator.nextItemProps}>Next page</Button>
-                    </Button.Group>
-                </Box>
-            )}
         </>
     );
 };

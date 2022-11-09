@@ -1,15 +1,16 @@
-import { DatabaseTableName } from "@/db-client";
-import { schemaHelper } from "@/db-helper";
-
 import { useDbStrict } from "@kikko-land/react";
 import { Tabs } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { DataGrid } from "mantine-data-grid";
 import { useState } from "react";
-import { List } from "./List";
-import { WithDb } from "./WithDb";
 import { match } from "ts-pattern";
-import { TableGrid } from "./TableGrid";
+
+import type { DatabaseTableName } from "@/db-client";
+import { schemaHelper } from "@/db-helper";
+
+import { List } from "./List";
+import { TableGridWithPaginator } from "./TableGridWithPaginator";
+import { WithDb } from "./WithDb";
 
 export const OfflineDemo = () => {
     return (
@@ -58,8 +59,8 @@ const DemoContent = () => {
                                     { header: "isAutoIncrementing", accessorFn: (row) => row.isAutoIncrementing },
                                     { header: "hasDefaultValue", accessorFn: (row) => row.hasDefaultValue },
                                 ]}
-                                initialState={{ pagination: { pageSize: 20 } }}
-                                pageSizes={[20, 50, 100, 500].map(String)}
+                                initialState={{ pagination: { pageSize: 100 } }}
+                                pageSizes={[100, 250, 500, 1000].map(String)}
                                 loading={query.isLoading}
                                 withPagination
                                 withSorting
@@ -71,7 +72,7 @@ const DemoContent = () => {
                         const table = tableRows.find((t) => t.name === tableName)!;
                         return (
                             <Tabs.Panel key={table.name} value={table.name}>
-                                <TableGrid table={table} />
+                                <TableGridWithPaginator table={table} />
                             </Tabs.Panel>
                         );
                     })}
