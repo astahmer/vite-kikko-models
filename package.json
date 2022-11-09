@@ -49,6 +49,7 @@
         "react-dom": "^18.2.0",
         "react-error-boundary": "^3.1.4",
         "ts-pattern": "^4.0.5",
+        "wa-sqlite": "rhashimoto/wa-sqlite#buildless",
         "zod": "^3.19.1"
     },
     "devDependencies": {

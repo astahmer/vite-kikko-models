@@ -48,6 +48,7 @@ specifiers:
   vite-plugin-checker: ^0.5.1
   vite-plugin-compress: ^2.1.1
   vitest: ^0.25.1
+  wa-sqlite: rhashimoto/wa-sqlite#buildless
   zod: ^3.19.1
 
 dependencies:
@@ -80,6 +81,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
   ts-pattern: 4.0.5
+  wa-sqlite: github.com/rhashimoto/wa-sqlite/88de61aca72a15a8bc3fd9e894a060fd17985ee8
   zod: 3.19.1
 
 devDependencies:
