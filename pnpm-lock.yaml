@@ -3,18 +3,18 @@ lockfileVersion: 5.4
 specifiers:
   '@astahmer/eslint-config-react': ^0.1.5
   '@emotion/react': ^11.10.5
-  '@kikko-land/absurd-web-backend': ^0.7.1
-  '@kikko-land/react': ^0.6.3
+  '@kikko-land/absurd-web-backend': ^0.7.2
+  '@kikko-land/react': ^0.6.4
   '@kikko-land/sql.js': ^1.6.8
-  '@kikko-land/wa-sqlite-web-backend': ^0.6.0
-  '@mantine/core': ^5.7.1
-  '@mantine/dates': ^5.7.1
-  '@mantine/hooks': ^5.7.1
-  '@mikro-orm/cli': ^5.5.2
-  '@mikro-orm/core': ^5.5.2
-  '@mikro-orm/migrations': ^5.5.2
-  '@mikro-orm/sqlite': ^5.5.2
-  '@tanstack/react-query': ^4.14.5
+  '@kikko-land/wa-sqlite-web-backend': ^0.7.2
+  '@mantine/core': ^5.7.2
+  '@mantine/dates': ^5.7.2
+  '@mantine/hooks': ^5.7.2
+  '@mikro-orm/cli': ^5.5.3
+  '@mikro-orm/core': ^5.5.3
+  '@mikro-orm/migrations': ^5.5.3
+  '@mikro-orm/sqlite': ^5.5.3
+  '@tanstack/react-query': ^4.15.0
   '@types/fs-extra': ^9.0.13
   '@types/prettier': ^2.7.1
   '@types/react': ^18.0.25
@@ -41,30 +41,30 @@ specifiers:
   react-highlight-words: ^0.18.0
   ts-pattern: ^4.0.5
   ts-toolbelt: ^9.6.0
-  tsx: ^3.11.0
+  tsx: ^3.12.1
   type-fest: ^3.2.0
   typescript: ^4.8.4
   vite: ^3.2.3
   vite-plugin-checker: ^0.5.1
   vite-plugin-compress: ^2.1.1
   vitest: ^0.25.1
-  wa-sqlite: rhashimoto/wa-sqlite#buildless
+  wa-sqlite: github:rhashimoto/wa-sqlite#buildless
   zod: ^3.19.1
 
 dependencies:
   '@emotion/react': 11.10.5_fan5qbzahqtxlm5dzefqlqx5ia
-  '@kikko-land/absurd-web-backend': 0.7.1_typescript@4.8.4
-  '@kikko-land/react': 0.6.3_uz2ogxeagc4rbieizlfzyaazee
+  '@kikko-land/absurd-web-backend': 0.7.2_typescript@4.8.4
+  '@kikko-land/react': 0.6.4_uz2ogxeagc4rbieizlfzyaazee
   '@kikko-land/sql.js': 1.6.8
-  '@kikko-land/wa-sqlite-web-backend': 0.6.0_typescript@4.8.4
-  '@mantine/core': 5.7.1_etrvyeh76ry4n4cxjc37hheh7y
-  '@mantine/dates': 5.7.1_lni5jfcb2rnvcbwwtjvdilsfji
-  '@mantine/hooks': 5.7.1_react@18.2.0
-  '@mikro-orm/cli': 5.5.2_uvetu5wogl7eqt36uv23fpzo5e
-  '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-  '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
-  '@mikro-orm/sqlite': 5.5.2_qrbelr77l54b5i7ogqsbzywrai
-  '@tanstack/react-query': 4.14.5_biqbaboplfbrettd7655fr4n2y
+  '@kikko-land/wa-sqlite-web-backend': 0.7.2_typescript@4.8.4
+  '@mantine/core': 5.7.2_s42f3uthtxnh7bllormamvwjhq
+  '@mantine/dates': 5.7.2_jc22cljiz55xiepef7uf36e3se
+  '@mantine/hooks': 5.7.2_react@18.2.0
+  '@mikro-orm/cli': 5.5.3_wan7gmyf5r6cyw6cbv5pknd3bq
+  '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+  '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
+  '@mikro-orm/sqlite': 5.5.3_fkimebmvgjjtpw44yq5wh7is4e
+  '@tanstack/react-query': 4.15.0_biqbaboplfbrettd7655fr4n2y
   '@types/fs-extra': 9.0.13
   '@zag-js/pagination': 0.1.1
   '@zag-js/react': 0.2.1_react@18.2.0
@@ -75,7 +75,7 @@ dependencies:
   human-id: 4.0.0
   kysely: 0.22.0
   kysely-codegen: 0.8.0_d7c7xlu4jrfdl7tjjj4tbpn37a
-  mantine-data-grid: 0.0.21_vel5mhvlm4lwvaa4uy5djpzygy
+  mantine-data-grid: 0.0.21_wj4bgqjzzdsudmm2cotjygfiea
   pastable: 2.0.13_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -96,7 +96,7 @@ devDependencies:
   prettier: 2.7.1
   react-highlight-words: 0.18.0_react@18.2.0
   ts-toolbelt: 9.6.0
-  tsx: 3.11.0
+  tsx: 3.12.1
   type-fest: 3.2.0
   typescript: 4.8.4
   vite: 3.2.3
@@ -657,12 +657,12 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@kikko-land/absurd-web-backend/0.7.1_typescript@4.8.4:
-    resolution: {integrity: sha512-GyeRDzoMkVQ4enCAeYcYlskIpMXkirBeBTiPr57H3GwlZfetRQrjw+dvvwerwNZXYSlhypNSOpdStiQ0DBL3jQ==}
+  /@kikko-land/absurd-web-backend/0.7.2_typescript@4.8.4:
+    resolution: {integrity: sha512-9m+jjyBN9HwgdMRXIqqyH1h8qsO5KTbClMWAPFHEt0i1kwGm236I3e2W8xW+MHTqzONm72fy1qUllrEpsTgXfw==}
     dependencies:
       '@kikko-land/better-absurd-sql': 0.0.57
       '@kikko-land/boono': 0.2.1
-      '@kikko-land/kikko': 0.8.0_typescript@4.8.4
+      '@kikko-land/kikko': 0.9.0_typescript@4.8.4
       '@kikko-land/sql.js': 1.6.8
       comlink: 4.3.1
     transitivePeerDependencies:
@@ -695,46 +695,56 @@ packages:
       - typescript
     dev: false
 
-  /@kikko-land/migrations-plugin/0.6.1_typescript@4.8.4:
-    resolution: {integrity: sha512-l3CYZiUgRH0fsXlxrrC1fAEm3BZBMC5ZaiZ+pHrAYg0ZXwft6zvsueHQ+S0JEJl1slHurR881hbSs3b1Vg2s9w==}
+  /@kikko-land/kikko/0.9.0_typescript@4.8.4:
+    resolution: {integrity: sha512-GxuOhtrLiCGX/UD7T9DBSN6+1MVj4EweAgPb6YIZh2NrumNdPHouQlSyRMh4UzCokZ8IC/G8ODglqn1xASEHIQ==}
     dependencies:
       '@kikko-land/boono-sql': 0.3.0
-      '@kikko-land/kikko': 0.8.0_typescript@4.8.4
+      fast-equals: 4.0.3
+      ts-essentials: 9.3.0_typescript@4.8.4
     transitivePeerDependencies:
       - typescript
     dev: false
 
-  /@kikko-land/react-queries-hooks/0.9.0_uz2ogxeagc4rbieizlfzyaazee:
-    resolution: {integrity: sha512-HjGoaZ45h+f/1XelWBs9ykdyVtga+1MHuKN93fX1141wNI6P/+9XfbGl6jMOeHUarGzcBbsrF01B6SQRAvcXSg==}
+  /@kikko-land/migrations-plugin/0.6.2_typescript@4.8.4:
+    resolution: {integrity: sha512-k/Rdggd8fQKku1qYxFKLVb5y0BHTHmK/XXAUH0eEnfQm3OY4b8vIFumH9iTXQ3QoHgIp8Ka3+geWTzON+eaP7Q==}
+    dependencies:
+      '@kikko-land/boono-sql': 0.3.0
+      '@kikko-land/kikko': 0.9.0_typescript@4.8.4
+    transitivePeerDependencies:
+      - typescript
+    dev: false
+
+  /@kikko-land/react-queries-hooks/0.9.1_uz2ogxeagc4rbieizlfzyaazee:
+    resolution: {integrity: sha512-5F4DfD07KEflapRYXdKYFkDBAjgOUGS9ouPOSax3jTgjShDhEQ9mNQGehmjxUD9VcA6s85Ty9IBe6qWvcYrI+Q==}
     peerDependencies:
       react: '>=18.2.0'
     dependencies:
       '@kikko-land/boono-sql': 0.3.0
-      '@kikko-land/kikko': 0.8.0_typescript@4.8.4
-      '@kikko-land/reactive-queries-plugin': 0.7.0_typescript@4.8.4
+      '@kikko-land/kikko': 0.9.0_typescript@4.8.4
+      '@kikko-land/reactive-queries-plugin': 0.7.1_typescript@4.8.4
       react: 18.2.0
     transitivePeerDependencies:
       - typescript
     dev: false
 
-  /@kikko-land/react/0.6.3_uz2ogxeagc4rbieizlfzyaazee:
-    resolution: {integrity: sha512-RT55W+HC7dNBGg0dVk+4i7YJxyBHjIZcqZeRbBpgaYDlXGyMug5WGbvL0sTei83l4fS/A/qQEXJT7rpUkO+/tw==}
+  /@kikko-land/react/0.6.4_uz2ogxeagc4rbieizlfzyaazee:
+    resolution: {integrity: sha512-D7ArNCGev9XPdqg4F/DS5fCWW95e97QrxsL2OlFpnko4M4kWRozvQHGtifmEvXdBTpfqmaIGaKNuaU4WEYfX4g==}
     dependencies:
       '@kikko-land/boono-sql': 0.3.0
-      '@kikko-land/kikko': 0.8.0_typescript@4.8.4
-      '@kikko-land/migrations-plugin': 0.6.1_typescript@4.8.4
-      '@kikko-land/react-queries-hooks': 0.9.0_uz2ogxeagc4rbieizlfzyaazee
-      '@kikko-land/reactive-queries-plugin': 0.7.0_typescript@4.8.4
+      '@kikko-land/kikko': 0.9.0_typescript@4.8.4
+      '@kikko-land/migrations-plugin': 0.6.2_typescript@4.8.4
+      '@kikko-land/react-queries-hooks': 0.9.1_uz2ogxeagc4rbieizlfzyaazee
+      '@kikko-land/reactive-queries-plugin': 0.7.1_typescript@4.8.4
     transitivePeerDependencies:
       - react
       - typescript
     dev: false
 
-  /@kikko-land/reactive-queries-plugin/0.7.0_typescript@4.8.4:
-    resolution: {integrity: sha512-v1v88FSh0e9N9NEbefshZULjxkcb5X/4dSr4Zf2WrmaKUAc1e1iIcTOBNLX1Chnkz/ARD56wV9xV5q3uKRXX9A==}
+  /@kikko-land/reactive-queries-plugin/0.7.1_typescript@4.8.4:
+    resolution: {integrity: sha512-KxuoiH3h6g3dCvpLLwPfZJJ6GgSoSNML9I9u398h5chuZFcj3ZjilRMV/2ywdjBOhgp7WGL0KeRf4JuXt8LqhA==}
     dependencies:
       '@kikko-land/boono-sql': 0.3.0
-      '@kikko-land/kikko': 0.8.0_typescript@4.8.4
+      '@kikko-land/kikko': 0.9.0_typescript@4.8.4
       broadcast-channel: 4.18.1
     transitivePeerDependencies:
       - typescript
@@ -744,8 +754,8 @@ packages:
     resolution: {integrity: sha512-2/8V69uMsqjjWCZlgT2lF9I9ImVzQjwd0MfWXNcswvYV6OPW4xQC2SMCfFzqAhHuLx0LW67ir9C7IIid/g/krA==}
     dev: false
 
-  /@kikko-land/wa-sqlite-web-backend/0.6.0_typescript@4.8.4:
-    resolution: {integrity: sha512-YHbBCD1MVnYym1Go8gcxuNNOFWQEYIAJ8CriG1Pu0WuhSW4tbShlmCNxhTBkXc06zX+HhevLyRg3QTqFalHWvA==}
+  /@kikko-land/wa-sqlite-web-backend/0.7.2_typescript@4.8.4:
+    resolution: {integrity: sha512-jRdVqOMjS73t7NI/jVPcROCagHUhZkORGd99DJM4TQ3KUolElqCpftXXpSD5zd22s0xeMMCWQ7w7lCUaOzr3Pw==}
     dependencies:
       '@kikko-land/boono-sql': 0.3.0
       '@kikko-land/kikko': 0.8.0_typescript@4.8.4
@@ -755,17 +765,17 @@ packages:
       - typescript
     dev: false
 
-  /@mantine/core/5.7.1_etrvyeh76ry4n4cxjc37hheh7y:
-    resolution: {integrity: sha512-fGfEqz5TsJ28Ts1g+qkDgdWg7h+wolmBD8xRJVvIy8/W5cEjiCXVyIK5iEX76y15G2ALzneCc6J4V9yvioaXSA==}
+  /@mantine/core/5.7.2_s42f3uthtxnh7bllormamvwjhq:
+    resolution: {integrity: sha512-cDDvlYhDCzREfIZ33CRLQpXlv+UXRb4VBZWbfYxWXTRPV6gKNGXwlVmXcdDUJCcjRWLh9Wc4erWT8gdTAbvzsQ==}
     peerDependencies:
-      '@mantine/hooks': 5.7.1
+      '@mantine/hooks': 5.7.2
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
       '@floating-ui/react-dom-interactions': 0.10.3_2zx2umvpluuhvlq44va5bta2da
-      '@mantine/hooks': 5.7.1_react@18.2.0
-      '@mantine/styles': 5.7.1_sogmqz4enknxtkxk3k5s6bqwnq
-      '@mantine/utils': 5.7.1_react@18.2.0
+      '@mantine/hooks': 5.7.2_react@18.2.0
+      '@mantine/styles': 5.7.2_sogmqz4enknxtkxk3k5s6bqwnq
+      '@mantine/utils': 5.7.2_react@18.2.0
       '@radix-ui/react-scroll-area': 1.0.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -775,31 +785,31 @@ packages:
       - '@types/react'
     dev: false
 
-  /@mantine/dates/5.7.1_lni5jfcb2rnvcbwwtjvdilsfji:
-    resolution: {integrity: sha512-5MHrRFqaF5qGaL0YEOEzaWMXnqYOy2eG6K2Dj5cU5n6ooMI0JEqDrfuP+YcXsd28OysgH97kmvZmIZpumAUdVg==}
+  /@mantine/dates/5.7.2_jc22cljiz55xiepef7uf36e3se:
+    resolution: {integrity: sha512-TFOebfiAcPoLJZWDRvh2PJiXPFeNmiAcISjnt2F3ihyr25j0MVs/Zkp2ozYkFCtc6BnVluwkv2H4h9FLuCaL6A==}
     peerDependencies:
-      '@mantine/core': 5.7.1
-      '@mantine/hooks': 5.7.1
+      '@mantine/core': 5.7.2
+      '@mantine/hooks': 5.7.2
       dayjs: '>=1.0.0'
       react: '>=16.8.0'
     dependencies:
-      '@mantine/core': 5.7.1_etrvyeh76ry4n4cxjc37hheh7y
-      '@mantine/hooks': 5.7.1_react@18.2.0
-      '@mantine/utils': 5.7.1_react@18.2.0
+      '@mantine/core': 5.7.2_s42f3uthtxnh7bllormamvwjhq
+      '@mantine/hooks': 5.7.2_react@18.2.0
+      '@mantine/utils': 5.7.2_react@18.2.0
       dayjs: 1.11.6
       react: 18.2.0
     dev: false
 
-  /@mantine/hooks/5.7.1_react@18.2.0:
-    resolution: {integrity: sha512-I50Xa9ddiptAv2jtxmcVwuIj9s2lFMbSCXKwFwDKzxJQwWt45Hv4el4znmGuN/FluE2D/pJhje0FAP5NhMpgNw==}
+  /@mantine/hooks/5.7.2_react@18.2.0:
+    resolution: {integrity: sha512-g+fxcnQwEeVM/5h+SAX/rDNL2s1652DGbP4xxfNg6yFqqhQzmtxQN7xsmkZ+ffx8wKhbsP5z13x6WZoxuJQh9Q==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
       react: 18.2.0
     dev: false
 
-  /@mantine/styles/5.7.1_sogmqz4enknxtkxk3k5s6bqwnq:
-    resolution: {integrity: sha512-WVnbl7Zz6b0WWBqYBDV3P61icQ8RSBMR/cHu0YLOyYNpjnuNP4zF+mMgRK3jYsXi/h7++z3ReK7NagBI/iwTSg==}
+  /@mantine/styles/5.7.2_sogmqz4enknxtkxk3k5s6bqwnq:
+    resolution: {integrity: sha512-z5Mxf6Zp7lXzfIM77XkZ68Wp62lDSMJwEMoKm0Kz5tRGV4oMQwirbZf4ZJznZKK3HkaT7ct1ScxnCouEWzlKUg==}
     peerDependencies:
       '@emotion/react': '>=11.9.0'
       react: '>=16.8.0'
@@ -812,8 +822,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@mantine/utils/5.7.1_react@18.2.0:
-    resolution: {integrity: sha512-YHn6BDI2kkmLY6Zdv8MnFaolKbD+sJyCBG1GY0yO6aHiz8/vTxiaTJv7mhro7Pc1XzclDzVJvd9kAd6lzumAyg==}
+  /@mantine/utils/5.7.2_react@18.2.0:
+    resolution: {integrity: sha512-LE/ckEX+d1f5GOP1ARNEldUYybOp3Tualx5IYgeV06oyBOaeJaXs9Tco2NTM6j+opZwUbNuYEUmtp4bkArhpOg==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
@@ -838,8 +848,8 @@ packages:
       - supports-color
     dev: false
 
-  /@mikro-orm/cli/5.5.2_uvetu5wogl7eqt36uv23fpzo5e:
-    resolution: {integrity: sha512-b/1Q2Ks0lJOCyDhprd4o9sx27mB/EetWUfK/nkVVBtjE2L3KL4eZGwOhVGWfvo8ACK9rjkx6/RQPaCfhf1Lw9w==}
+  /@mikro-orm/cli/5.5.3_wan7gmyf5r6cyw6cbv5pknd3bq:
+    resolution: {integrity: sha512-lktxPeJHqUDbFYbo+e0zWBsQ9v/cChmM0ooxLHxK2Y+OA+frYUNf+LhQ61TGDFm4Ga/nbbA9+3J9qDy4XWIRRQ==}
     engines: {node: '>= 14.0.0'}
     hasBin: true
     peerDependencies:
@@ -875,10 +885,10 @@ packages:
       '@mikro-orm/sqlite':
         optional: true
     dependencies:
-      '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-      '@mikro-orm/knex': 5.5.2_qrbelr77l54b5i7ogqsbzywrai
-      '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
-      '@mikro-orm/sqlite': 5.5.2_qrbelr77l54b5i7ogqsbzywrai
+      '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+      '@mikro-orm/knex': 5.5.3_fkimebmvgjjtpw44yq5wh7is4e
+      '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
+      '@mikro-orm/sqlite': 5.5.3_fkimebmvgjjtpw44yq5wh7is4e
       fs-extra: 10.1.0
       tsconfig-paths: 4.1.0
       yargonaut: 1.1.4
@@ -895,8 +905,8 @@ packages:
       - tedious
     dev: false
 
-  /@mikro-orm/core/5.5.2_54paqp4v47p3n6ci3hujlfhiuq:
-    resolution: {integrity: sha512-rFSGNLEHO85StvNk1JMWrd4XXKXlkd2u6STpPy2ZyI+dRDllHTzJC4oQ0YRR2gRFfiaVR5uDXDGiWL7LwfWK1g==}
+  /@mikro-orm/core/5.5.3_u733vjhikxg3kfojfqgyvap5b4:
+    resolution: {integrity: sha512-/iQ6YKDp8EfTYibAOTkvW44uIc3qk0N+VSsUqMtO3sjb5Y2C6B+Wz4E1Qjb+oSeZtvWZn469HMCiOTgdMl6KSw==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
       '@mikro-orm/better-sqlite': ^5.0.0
@@ -931,19 +941,19 @@ packages:
       '@mikro-orm/sqlite':
         optional: true
     dependencies:
-      '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
-      '@mikro-orm/sqlite': 5.5.2_qrbelr77l54b5i7ogqsbzywrai
+      '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
+      '@mikro-orm/sqlite': 5.5.3_fkimebmvgjjtpw44yq5wh7is4e
       acorn-loose: 8.3.0
       acorn-walk: 8.2.0
       dotenv: 16.0.3
       fs-extra: 10.1.0
       globby: 11.0.4
-      mikro-orm: 5.5.2
+      mikro-orm: 5.5.3
       reflect-metadata: 0.1.13
     dev: false
 
-  /@mikro-orm/knex/5.5.2_3x762djgcbvtbo5isjc3h3fhs4:
-    resolution: {integrity: sha512-GY63uZpbt4TnkImu7zG9WEfcwUNPhp5mfKPdH+Sr2ozft6CnVaaB5UuC5VjFCC5dxipT1nQotiOiw28Ovshziw==}
+  /@mikro-orm/knex/5.5.3_fkimebmvgjjtpw44yq5wh7is4e:
+    resolution: {integrity: sha512-vimh9DLsXwauuQj7Lrr70RP9tESIm4LB1BpUwMsj/6qRBaEBefV/BVQzPFDKUOe3bghB4kTEHAdJ7qCnpg1Byw==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
       '@mikro-orm/core': ^5.0.0
@@ -973,8 +983,51 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-      '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
+      '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+      '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
+      better-sqlite3: 7.6.2
+      fs-extra: 10.1.0
+      knex: 2.3.0_better-sqlite3@7.6.2
+      sqlstring: 2.3.3
+    transitivePeerDependencies:
+      - pg-native
+      - supports-color
+      - tedious
+    dev: false
+
+  /@mikro-orm/knex/5.5.3_iec63mof4uruch5svydwzseaxy:
+    resolution: {integrity: sha512-vimh9DLsXwauuQj7Lrr70RP9tESIm4LB1BpUwMsj/6qRBaEBefV/BVQzPFDKUOe3bghB4kTEHAdJ7qCnpg1Byw==}
+    engines: {node: '>= 14.0.0'}
+    peerDependencies:
+      '@mikro-orm/core': ^5.0.0
+      '@mikro-orm/entity-generator': ^5.0.0
+      '@mikro-orm/migrations': ^5.0.0
+      better-sqlite3: ^7.0.0
+      mssql: ^7.0.0
+      mysql: ^2.18.1
+      mysql2: ^2.1.0
+      pg: ^8.0.3
+      sqlite3: ^5.0.0
+    peerDependenciesMeta:
+      '@mikro-orm/entity-generator':
+        optional: true
+      '@mikro-orm/migrations':
+        optional: true
+      better-sqlite3:
+        optional: true
+      mssql:
+        optional: true
+      mysql:
+        optional: true
+      mysql2:
+        optional: true
+      pg:
+        optional: true
+      sqlite3:
+        optional: true
+    dependencies:
+      '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+      '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
       better-sqlite3: 7.6.2
       fs-extra: 10.1.0
       knex: 2.3.0_4gkygfkbsocrvses22zdjvba5u
@@ -986,57 +1039,14 @@ packages:
       - tedious
     dev: false
 
-  /@mikro-orm/knex/5.5.2_qrbelr77l54b5i7ogqsbzywrai:
-    resolution: {integrity: sha512-GY63uZpbt4TnkImu7zG9WEfcwUNPhp5mfKPdH+Sr2ozft6CnVaaB5UuC5VjFCC5dxipT1nQotiOiw28Ovshziw==}
-    engines: {node: '>= 14.0.0'}
-    peerDependencies:
-      '@mikro-orm/core': ^5.0.0
-      '@mikro-orm/entity-generator': ^5.0.0
-      '@mikro-orm/migrations': ^5.0.0
-      better-sqlite3: ^7.0.0
-      mssql: ^7.0.0
-      mysql: ^2.18.1
-      mysql2: ^2.1.0
-      pg: ^8.0.3
-      sqlite3: ^5.0.0
-    peerDependenciesMeta:
-      '@mikro-orm/entity-generator':
-        optional: true
-      '@mikro-orm/migrations':
-        optional: true
-      better-sqlite3:
-        optional: true
-      mssql:
-        optional: true
-      mysql:
-        optional: true
-      mysql2:
-        optional: true
-      pg:
-        optional: true
-      sqlite3:
-        optional: true
-    dependencies:
-      '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-      '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
-      better-sqlite3: 7.6.2
-      fs-extra: 10.1.0
-      knex: 2.3.0_better-sqlite3@7.6.2
-      sqlstring: 2.3.3
-    transitivePeerDependencies:
-      - pg-native
-      - supports-color
-      - tedious
-    dev: false
-
-  /@mikro-orm/migrations/5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm:
-    resolution: {integrity: sha512-E8lxbe19cXtlh0e7RCTqfcEsckGm6WuB71g5pD6dQ7XcUxlBR4K1ARqolNTS3XgubvQ/ZU+mA7sxu8qtF5+GFg==}
+  /@mikro-orm/migrations/5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4:
+    resolution: {integrity: sha512-1RQ451TkR37Zbpl73NoI/9jSWQ1dM3SPvJeHd+R3nbwtDcYoPI8eCOi/wrCu+ylQgkDE+LyuFFO+y7DpxsdvOQ==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
       '@mikro-orm/core': ^5.0.0
     dependencies:
-      '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-      '@mikro-orm/knex': 5.5.2_qrbelr77l54b5i7ogqsbzywrai
+      '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+      '@mikro-orm/knex': 5.5.3_fkimebmvgjjtpw44yq5wh7is4e
       fs-extra: 10.1.0
       knex: 2.3.0_better-sqlite3@7.6.2
       umzug: 3.2.1
@@ -1053,8 +1063,8 @@ packages:
       - tedious
     dev: false
 
-  /@mikro-orm/sqlite/5.5.2_qrbelr77l54b5i7ogqsbzywrai:
-    resolution: {integrity: sha512-3PiIJJ3jvbGRuBgItpyQrVpWEEYUg7hT4i3/u6Fifl37vf6OTt+gbDPAVmoQh+WNAkOzVbtmuNhWyUsY9s0qpg==}
+  /@mikro-orm/sqlite/5.5.3_fkimebmvgjjtpw44yq5wh7is4e:
+    resolution: {integrity: sha512-94OGj+4l5VpmxjaFWdjvEO2HDUS/EYYAPSm1mF0s4aejBmjulXWrTDRIXBgTaeBBcoUSM3iTPfLf5oaqGjajXQ==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
       '@mikro-orm/core': ^5.0.0
@@ -1069,9 +1079,9 @@ packages:
       '@mikro-orm/seeder':
         optional: true
     dependencies:
-      '@mikro-orm/core': 5.5.2_54paqp4v47p3n6ci3hujlfhiuq
-      '@mikro-orm/knex': 5.5.2_3x762djgcbvtbo5isjc3h3fhs4
-      '@mikro-orm/migrations': 5.5.2_5wjm36f5cm7i5gdaqpdrq7rgtm
+      '@mikro-orm/core': 5.5.3_u733vjhikxg3kfojfqgyvap5b4
+      '@mikro-orm/knex': 5.5.3_iec63mof4uruch5svydwzseaxy
+      '@mikro-orm/migrations': 5.5.3_ad2vjkmga2tyf7hgmtawj2l2j4
       fs-extra: 10.1.0
       sqlite3: 5.1.2
       sqlstring-sqlite: 0.1.1
@@ -1262,12 +1272,12 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /@tanstack/query-core/4.14.5:
-    resolution: {integrity: sha512-Su1AyrPb6xnm7wXTvpN5tt+B7LViYSh9k04vvuc6+eMVH0HkE9ktZTXibRrTvV83BI1KP5MG7v/k90ne/4zQzw==}
+  /@tanstack/query-core/4.15.0:
+    resolution: {integrity: sha512-zEZ7AuQRb8Ts+WXw9TtGtqydxmcOSRsWkFYxxH8dykPcumsV49BcNDLhHtYqVGPQpMjqMS4RoVYQP+budT6WbA==}
     dev: false
 
-  /@tanstack/react-query/4.14.5_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-CuWl/SxSB0zHhHaTja8LNhy9Vdk+vk9IkW3Oiq3lo4gPnTguHmbUzfjEA1x3RfvPeHfPMuq/pYMSbV+CX4aDQA==}
+  /@tanstack/react-query/4.15.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-WQZCSxZgYGkQUx2TRiGVcfxh0dsrP1qU7IYK/kbY1QbcWF2cQJsj80owgjpXBCRSk/nxpZ6j65Xi8TB5OTT5Vw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1278,7 +1288,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.14.5
+      '@tanstack/query-core': 4.15.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -1824,7 +1834,7 @@ packages:
     engines: {node: '>=10', npm: '>=6'}
     dependencies:
       '@babel/runtime': 7.20.1
-      cosmiconfig: 7.0.1
+      cosmiconfig: 7.1.0
       resolve: 1.22.1
     dev: false
 
@@ -2270,8 +2280,8 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig/7.0.1:
-    resolution: {integrity: sha512-a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==}
+  /cosmiconfig/7.1.0:
+    resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
     engines: {node: '>=10'}
     dependencies:
       '@types/parse-json': 4.0.0
@@ -4622,7 +4632,7 @@ packages:
     dev: false
     optional: true
 
-  /mantine-data-grid/0.0.21_vel5mhvlm4lwvaa4uy5djpzygy:
+  /mantine-data-grid/0.0.21_wj4bgqjzzdsudmm2cotjygfiea:
     resolution: {integrity: sha512-0BqN8+IrDlQvJeYEb2q2hRsEXwwlJwJZ/cEgpKzlOx6BoGJ8iqb0KVg/gTH4NVkmy251SSpj1KDcGtrN/ilrPA==}
     engines: {node: '>=14', pnpm: '>=7'}
     peerDependencies:
@@ -4637,9 +4647,9 @@ packages:
         optional: true
     dependencies:
       '@emotion/react': 11.10.5_fan5qbzahqtxlm5dzefqlqx5ia
-      '@mantine/core': 5.7.1_etrvyeh76ry4n4cxjc37hheh7y
-      '@mantine/dates': 5.7.1_lni5jfcb2rnvcbwwtjvdilsfji
-      '@mantine/hooks': 5.7.1_react@18.2.0
+      '@mantine/core': 5.7.2_s42f3uthtxnh7bllormamvwjhq
+      '@mantine/dates': 5.7.2_jc22cljiz55xiepef7uf36e3se
+      '@mantine/hooks': 5.7.2_react@18.2.0
       '@tanstack/react-table': 8.5.18_biqbaboplfbrettd7655fr4n2y
       '@types/react-window': 1.8.5
       dayjs: 1.11.6
@@ -4678,8 +4688,8 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
 
-  /mikro-orm/5.5.2:
-    resolution: {integrity: sha512-ZrGqJHFxm4BoH0cpZtR3Tg9+j7ctjNpYjBeTglbjm1Nt4gXp4CGlvJz+yHl6PG0wlvImlVBIpFJTOw2YNpCX+A==}
+  /mikro-orm/5.5.3:
+    resolution: {integrity: sha512-aF2FfyB4OI+1LEXM57mPFfpj/OpmghGZq4Hmi4kHB6920GyqeruBYLMiFkT7MflHVgLCfj+2tZV8+uBsGWBEDQ==}
     engines: {node: '>= 14.0.0'}
     dev: false
 
@@ -5359,8 +5369,8 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
-  /postcss/8.4.18:
-    resolution: {integrity: sha512-Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA==}
+  /postcss/8.4.19:
+    resolution: {integrity: sha512-h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.4
@@ -6410,8 +6420,8 @@ packages:
       typescript: 4.8.4
     dev: true
 
-  /tsx/3.11.0:
-    resolution: {integrity: sha512-q+q4xxu41+AafVwvAGqtNJ1ekPFd33ZhTMXvgIpHMqv/W89efwDRE9IyjhEAZm5iTHsshKaf1BYWSk789BrNCA==}
+  /tsx/3.12.1:
+    resolution: {integrity: sha512-Rcg1x+rNe7qwlP8j7kx4VjP/pJo/V57k+17hlrn6a7FuQLNwkaw5W4JF75tYornNVCxkXdSUnqlIT8JY/ttvIw==}
     hasBin: true
     dependencies:
       '@esbuild-kit/cjs-loader': 2.4.0
@@ -6719,7 +6729,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.15.13
-      postcss: 8.4.18
+      postcss: 8.4.19
       resolve: 1.22.1
       rollup: 2.79.1
     optionalDependencies:
@@ -6753,7 +6763,7 @@ packages:
     dependencies:
       '@types/node': 18.11.9
       esbuild: 0.15.13
-      postcss: 8.4.18
+      postcss: 8.4.19
       resolve: 1.22.1
       rollup: 2.79.1
     optionalDependencies:

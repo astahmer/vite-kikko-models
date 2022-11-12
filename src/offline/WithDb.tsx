@@ -6,10 +6,8 @@ import {
     migrationsPlugin,
     reactiveQueriesPlugin,
 } from "@kikko-land/react";
-import { absurdWebBackend } from "@kikko-land/absurd-web-backend";
-// import { waSqliteWebBackend } from "@kikko-land/wa-sqlite-web-backend";
-import sqlWasmUrl from "@kikko-land/sql.js/dist/sql-wasm.wasm?url";
-// import sqlWasmUrl from "wa-sqlite/dist/wa-sqlite-async.wasm?url";
+import { waSqliteWebBackend } from "@kikko-land/wa-sqlite-web-backend";
+import sqlWasmUrl from "wa-sqlite/dist/wa-sqlite-async.wasm?url";
 import type { WithChildren } from "pastable";
 
 const migrations: IMigration[] = Object.values(
@@ -17,9 +15,7 @@ const migrations: IMigration[] = Object.values(
 );
 console.log({ migrations });
 
-// TODO
-// const backend = waSqliteWebBackend({ wasmUrl: sqlWasmUrl });
-const backend = absurdWebBackend({ wasmUrl: sqlWasmUrl });
+const backend = waSqliteWebBackend({ wasmUrl: sqlWasmUrl });
 
 const config: IInitDbClientConfig = {
     dbName: "quick-example-db",

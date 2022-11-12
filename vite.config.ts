@@ -18,11 +18,11 @@ export default defineConfig({
         checker({
             typescript: true,
             overlay: { initialIsOpen: false, position: "tl" },
-            eslint: process.env.TEST
-                ? undefined
-                : {
-                      lintCommand: "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
-                  },
+            // eslint: process.env.TEST
+            //     ? undefined
+            //     : {
+            //           lintCommand: "eslint -c .eslintrc.js './src/**/*.{js,jsx,ts,tsx}' --cache",
+            //       },
         }),
     ],
     resolve: {
